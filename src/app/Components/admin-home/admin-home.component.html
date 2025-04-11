@@ -1,0 +1,23 @@
+
+    <!-- <div class="container">
+
+        <div class="card">
+            <div class="icon"></div>
+            <div class="text">تم التسليم</div>
+            <div class="count">109</div>
+        </div>
+       
+    </div> -->
+        <div class="container">
+            <div class="row">
+                @for (title of titles; track $index) {
+                    <div class="col-md-2">
+                        <div class="card">
+                            <div class="text">{{title}}</div>
+                            <div class="count">109</div>
+                        </div>
+                    </div>
+                }
+                
+            </div>
+        </div>

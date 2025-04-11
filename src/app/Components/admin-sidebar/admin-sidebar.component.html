@@ -1,0 +1,74 @@
+<aside class="sidebar" [ngClass]="{'active': isActive}">
+    <div class="logo">
+       <!-- <i class="fa-regular fa-square-caret-right"></i>  -->
+    </div>
+  
+   <nav class="menu">
+      <h1 class="menu-header">Menu</h1>
+  
+       <a [routerLink]="['/home']" routerLinkActive="nav-active" >   
+      <div class="menu-item " data-tooltip="Home">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Home</span>
+      </div>
+       
+       </a> 
+       <a [routerLink]="['/emo']" routerLinkActive="nav-active" >
+
+      <div class="menu-item" data-tooltip="Settings">
+        <i class="fa-solid fa-gear"></i>
+
+        <span>Settings</span>
+             
+      </div>
+    </a>
+
+      <div class="menu-item" data-tooltip="Users">
+        <i class="fa-solid fa-users"></i>
+        <span>Users</span>
+      </div>
+      <div class="menu-item" data-tooltip="Areas">
+        <i class="fa-solid fa-truck-fast"></i>
+        <span>Areas</span>
+      </div>
+      <a [routerLink]="['/orders']" routerLinkActive="nav-active">
+        <div class="menu-item" data-tooltip="Orders">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Orders</span>
+        </div>
+      </a>
+     
+      <div class="menu-item" data-tooltip="Cash">
+        <i class="fa-solid fa-money-check-dollar"></i>
+        <span>Cash</span>
+      </div>
+  
+      <h1 class="menu-header shortcuts">Shortcuts</h1>
+      <div class="menu-item" data-tooltip="Add">
+        <i class="bx bx-add-to-queue"></i>
+        <span>Add</span>
+      </div>
+      <div class="menu-item" data-tooltip="Remove">
+        <i class="bx bx-message-square-minus"></i>
+        <span>Remove</span>
+      </div>
+    </nav>
+  
+    <div class="logout" data-tooltip="Logout">
+      <i class="bx bx-log-out"></i>
+      <span>Logout</span>
+    </div>
+  
+    <div class="toggle-menu" (click)="toggleSidebar()"> 
+       <!-- @if (!isActive) {
+            <i class="fa-regular fa-square-caret-right"></i> 
+        }
+        @else if (isActive) {
+            <i class="fa-regular fa-square-caret-left"></i>
+        }   -->
+     
+       <i class="fa-solid fa-bars"></i> 
+    </div>
+  </aside>

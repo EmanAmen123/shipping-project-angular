@@ -1,0 +1,71 @@
+<app-show-orders-nav/>
+
+  <div class="container mt-5">
+   
+    <div class="mb-3">
+        <input type="text" class="form-control w-25" placeholder="Search...">
+    </div>
+    @if (orders) {
+
+    <table class="table table-bordered text-center">
+        <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">الرقم التسلسلي</th>
+              <th scope="col">Date </th>
+              <th scope="col">Customer data</th>
+              <th scope="col">Governrate</th>
+              <th scope="col"> City</th>
+              <th scope="col"> Order cost</th>
+              <th scope="col"> Edit </th>
+              <th scope="col">  تغيير الحالة</th>
+              <th scope="col"> Delete </th>
+              <th scope="col">  <i class="fa-solid fa-print"></i></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (order of orders; track order.id) {
+              <tr>
+                <td>
+                  <input type="checkbox"/>
+              </td>
+              <td> {{order.id}}</td>
+              <td>{{order.orderDate}}</td>
+              <td>{{order.customerName}} {{order.customerPhone}}</td>
+              <td>{{order.governorate}}</td>
+              <td>{{order.city}}</td>
+              <td>{{order.orderPrice}}</td>
+              <td>
+                <button class="btn btn-success btn-sm"   [routerLink]="['/addOrder',order.id]"><i class="fa-solid fa-pen-to-square"></i></button>
+              </td>
+           
+              <td>
+                <button class="btn btn-info btn-sm">الحالة</button> 
+               </td>
+               <td>
+                <button class="btn btn-danger btn-sm mx-1 " (click)="deleteorder(order.id)"><i class="fa-solid fa-trash"></i></button>
+                </td>
+               <td>
+                <button class="btn btn-danger btn-sm mx-1" ><i class="fa-solid fa-print"></i></button>
+                </td>
+                
+          
+            </tr>
+            }
+          
+          
+        </tbody>
+    </table>
+  }
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1"> <-- </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#"> --> </a>
+            </li>
+        </ul>
+    </nav>
+</div>

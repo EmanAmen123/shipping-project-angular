@@ -1,0 +1,189 @@
+    <div class="container">
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+       
+            <div class="form-group col-md-4">
+                <label for="type">type</label>
+                <select id="type" class="form-control" formControlName="shippingMethod">
+                    <option selected>Select type </option>
+                    <option value="FromCompanyBranch">From Company Branch</option>
+                    <option value="FromMerchentBranch">From Merchent Branch</option>
+                </select>
+                @if (shippingMethod.touched) {
+                    <div class="alert alert-danger w-50">
+                        @if (shippingMethod.hasError('required')) {
+                            <p  class="m-0">Shipping Method is required </p>
+                        }
+                    </div>
+                    <!-- @if (shippingMethod.hasError('required')) {
+                        <div  class="form-text text-danger">Shipping Method is required </div>
+                    } -->
+                }
+            </div>
+          
+            <div>
+              <label>Customer Name:</label>
+              <input 
+              id="customerName" 
+              formControlName="customerName" 
+              [ngClass]="{
+                'is-valid': customerName.valid && (customerName.touched || customerName.dirty),
+                'is-invalid': customerName.invalid && (customerName.touched || customerName.dirty)
+              }" 
+              class="form-control" 
+            />
+              @if (customerName.touched|| customerName.dirty) {
+                @if (customerName.hasError('required')) {
+                    <div  class="form-text text-danger">customer Name is required </div>
+                }
+                @if (customerName.hasError('minlength')) {
+                    <div  class="form-text text-danger">minimum 3 charachters </div>
+                }
+              }
+            </div>
+          
+            <div>
+              <label>Phone:</label>
+              <input formControlName="customerPhone" />
+              @if (customerPhone.touched || customerPhone.dirty) {
+                @if (customerPhone.hasError('required')) {
+                    <div  class="form-text text-danger">customer Phone number is required </div>
+                }
+                @if (customerPhone.hasError('pattern')) {
+                    <div  class="form-text text-danger">enter a valid Phone number </div>
+                }
+              }
+            </div>
+          
+            <div>
+              <label>Email:</label>
+              <input formControlName="customerEmail" />
+              @if (customerEmail.touched || customerEmail.dirty) {
+                @if (customerEmail.hasError('required')) {
+                    <div  class="form-text text-danger">customer Email is required </div>
+                }
+                @if (customerEmail.hasError('email')) {
+                    <div  class="form-text text-danger">Enter a valid Email </div>
+                }
+    
+              }
+            </div>
+            <div >
+                <label for="governrate"> Governrate </label>
+    
+                <select id="governrate" class="form-control" (change)="onGovernrateChange($event)" formControlName="governorateId">
+                <option disabled selected>Select Governrate</option>
+                    @for (gvrn of governrates; track gvrn.id) {
+                            <option [value]="gvrn.id">{{ gvrn.name }}</option>
+                                                             }
+                </select>
+                @if (governorateId.touched) {
+                    @if (governorateId.hasError('required')) {
+                        <div  class="form-text text-danger">governorate is required </div>
+                    }
+                  }
+            </div>
+           
+             <div>
+                <label class="switch">
+                    <input type="checkbox" formControlName="isVillageDelivery" [value]="isvallage" (change)="slide()"  >
+                    <span class="slider round"></span>
+                  </label>
+             </div>
+             @if (isvallage) {
+                <div>
+                    <label>Village and street:</label>
+                    <input formControlName="villageStreetAddress" />
+                  </div>
+             }
+    
+            <div class="form-group col-md-4">
+                <label for="deliverytype">Shipping Type </label>
+                <select id="deliverytype" class="form-control" formControlName="shippingTypeId">
+                    <option selected>Select Shipping Type</option>
+                    @for (type of shippingTypes; track $index) {
+                    <option [value]="type.id">{{type.type}}</option>
+                         
+                    }
+    
+                </select>
+                @if (shippingTypeId.touched) {
+                    @if (shippingTypeId.hasError('required')) {
+                        <div  class="form-text text-danger">shipping Type is required </div>
+                    }
+                  }
+            </div>
+            <div class="form-group col-md-4">
+                <label for="paymentType"> Payment</label>
+                <select id="paymentType" class="form-control" formControlName="paymentMethod">
+                    <option selected>اختر نوع الدفع</option>
+                    <option value="Cash"> Cash</option>
+                    <option value="Credit"> Credit</option>
+                    <option value="Order"> Order</option>
+                </select>
+                @if (paymentMethod.touched) {
+                    @if (paymentMethod.hasError('required')) {
+                        <div  class="form-text text-danger">payment Method is required </div>
+                    }
+                  }
+            </div>
+            <div class="form-group col-md-4">
+                <label for="city">City</label>
+                <select id="city" class="form-control" formControlName="cityId">
+                    <option selected> Select City</option>
+                    @for (city of gvrnCities; track $index) {
+                    <option [value]="city.id">{{city.name}}</option>
+                     
+                    }
+                </select>
+                @if (cityId.touched) {
+                    @if (cityId.hasError('required')) {
+                        <div  class="form-text text-danger">city is required </div>
+                    }
+                  }
+            </div>
+           
+          
+            <h3>Products</h3>
+            <div formArrayName="products">
+              <div *ngFor="let product of products.controls; let i=index" [formGroupName]="i">
+                <hr />
+                <label>Name:</label>
+                <input formControlName="name" />
+          
+                <label>Quantity:</label>
+                <input type="number" formControlName="quantity" />
+          
+                <label>Weight:</label>
+                <input type="number" formControlName="weight" />
+          
+                <button type="button" (click)="removeProduct(i)">Delete</button>
+              </div>
+            </div>
+          
+            <button type="button" (click)="addProduct()">Add Product</button>
+             
+            <br /><br />
+            <label>price:</label>
+            <input type="number" formControlName="orderPrice" />
+            <label>wieght:</label>
+            <input type="number" formControlName="totalWeight" readonly>
+                <br /><br />
+           
+            <button type="submit" >
+                @if (loading) {
+                    <i class="fas fa-spin fa-spinner"></i> 
+                }@else {
+                    Submit Order
+                }
+            </button>
+            @if (formErrorMsg) {
+            <p class="alert alert-danger w-50 m-0">{{formErrorMsg}}</p>
+                 
+            }
+
+
+
+          </form>
+          
+    </div>
+    

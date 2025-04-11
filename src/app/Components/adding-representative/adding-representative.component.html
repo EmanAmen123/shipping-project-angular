@@ -1,0 +1,54 @@
+
+<div class="container mt-5">
+    <h2 class="text-center">إضافة مندوب</h2>
+    <form>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="name">الاسم</label>
+                <input type="text" class="form-control" id="name" placeholder="الاسم">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="branch">الفرع</label>
+                <input type="text" class="form-control" id="branch" placeholder="الفرع">
+            </div>
+        </div>
+        <div class="form-group col-md-6">
+            <label for="email">البريد الإلكتروني</label>
+            <input type="email" class="form-control" id="email" placeholder="البريد الإلكتروني">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="password">كلمة المرور</label>
+            <input type="password" class="form-control" id="password" placeholder="كلمة المرور">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="phone">رقم الهاتف</label>
+                <input type="tel" class="form-control" id="phone" placeholder="رقم الهاتف">
+            </div>
+            
+        </div>
+            
+            <div class="form-group col-md-6">
+                <label for="governorate">المحافظة</label>
+                <select id="governorate" class="form-control">
+                    <option selected>اختر المحافظة</option>
+                    <option>محافظة 1</option>
+                    <option>محافظة 2</option>
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="discount">نوع الخصم</label>
+                <select id="discount" class="form-control">
+                    <option> نسبة مئوية</option>
+                    <option> قيمة ثابتة</option>
+                </select>
+            </div>
+
+        <div class="form-group">
+            <label for="ratio">نسبة الشركة من الطلب</label>
+            <input type="number" class="form-control col-md-6" id="ratio" value="0" >
+        </div>
+       
+        <button type="submit" class="btn btn-primary mt-1">حفظ</button>
+    </form>
+</div>
