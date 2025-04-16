@@ -12,9 +12,11 @@ import { IGovernrate,ICity,IOrder,iShippingtypes, Ibranch } from '../../core/int
 import { HttpErrorResponse } from '@angular/common/http';
 import { AdminBranchesService } from '../../core/services/branches/admin-branches.service';
 import { AdminService } from '../../core/services/adding/admin.service';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-add-order',
-  imports: [CommonModule, ReactiveFormsModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule ,  MatSnackBarModule],
   templateUrl: './add-order.component.html',
   styleUrl: './add-order.component.css'
 })
@@ -29,6 +31,10 @@ export class AddOrderComponent implements OnInit, OnDestroy {
    spacificOrder!:any
    governrates!:IGovernrate[]
    selectedGovernrateId: number | null = null;
+   selectedCityeId: number | null = null;
+   selectedpaymentId: number | null = null;
+   selectedmerchanteId: number | null = null;
+    edit:boolean=false
    shippingTypes!:iShippingtypes[]
    cities!:ICity[]
    gvrnCities!: ICity[]
@@ -36,14 +42,14 @@ export class AddOrderComponent implements OnInit, OnDestroy {
    oldcity:any=""
    oldbranch:any=""
    merchants!:any
-  constructor(private _AdminOrdersService:AdminOrdersService,private _AdminService:AdminService, private _GovernratesService:GovernratesService,private _ShippingService:ShippingService,private _FormBuilder: FormBuilder,private _ActivatedRoute:ActivatedRoute,private _Router:Router,private _AdminBranchesService:AdminBranchesService) {
+  constructor(private _AdminOrdersService:AdminOrdersService,private snackBar: MatSnackBar,private _AdminService:AdminService, private _GovernratesService:GovernratesService,private _ShippingService:ShippingService,private _FormBuilder: FormBuilder,private _ActivatedRoute:ActivatedRoute,private _Router:Router,private _AdminBranchesService:AdminBranchesService) {
     this.orderForm = this._FormBuilder.group({
       customerName: ['', [Validators.required,Validators.minLength(3)]],
       customerPhone: ['', [Validators.required,Validators.pattern(/^01[0125][0-9]{8}$/)]],
       customerEmail: ['',[Validators.required,Validators.email]],
       cityId: ['',Validators.required],
       governorateId: ['',Validators.required],
-      merchentId:[[Validators.required]],
+      merchentId:['',[Validators.required]],
       shippingTypeId: ['',Validators.required],
       orderStatus: ['New'],
       isVillageDelivery:false,
@@ -52,8 +58,8 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       totalWeight: [],
       branchId:['',Validators.required],
       phonenumber:['',[Validators.required,Validators.pattern(/^01[0125][0-9]{8}$/)]],  //for merchant
-      address:['',[Validators.required,Validators.minLength(5)]],        //for merchant
-      paymentMethod: ['',Validators.required],
+      address:['',[Validators.required,Validators.minLength(3)]],        //for merchant
+      paymentType: ['',Validators.required],
       shippingMethod: ['',Validators.required],
       products: this._FormBuilder.array([]),
     });
@@ -69,7 +75,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
   newProduct(): FormGroup {
     return this._FormBuilder.group({
       isDeleted: [false],
-      name: ['', Validators.required],
+      name: ['', [Validators.required,Validators.minLength(3)]],
       quantity: [1, [Validators.required, Validators.min(1)]],
       weight: [0, [Validators.required, Validators.min(0.1)]],
     });
@@ -85,6 +91,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if(this.orderId==0){
+      this.edit=false
     if (this.orderForm.valid ) {
       this.loading=true
       const orderData = this.orderForm.value;
@@ -93,7 +100,9 @@ export class AddOrderComponent implements OnInit, OnDestroy {
         next: response => {
           console.log('Order submitted!', response)
           this.loading=false
+          
           if(response.statusCode==200){
+            this.showMessage()
             setTimeout(() => {
                this._Router.navigate(['/orders','New'])
             }, 1000);
@@ -101,13 +110,17 @@ export class AddOrderComponent implements OnInit, OnDestroy {
           }
         },
         error: (error )=> {
+          this.showErrMessage()
         this.formErrorMsg=error
+        console.log(error)
         this.loading=false
         },
       });
     } else {
+      this.showErrMessage()
       console.log('Form is invalid',this.orderForm.value);
       this.orderForm.markAllAsTouched()
+
     }
   }
   else{
@@ -115,25 +128,30 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       this.loading=true
       const orderData = this.orderForm.value;
       console.log('Submitting Order:', orderData);
-      this._AdminOrdersService.editOrders(orderData).pipe(takeUntil(this.destroy$)).subscribe({
+      this._AdminOrdersService.editOrders(orderData,this.orderId).pipe(takeUntil(this.destroy$)).subscribe({
         next: response => {
           console.log('Order submitted!', response)
           this.loading=false
+
           if(response.statusCode==200){
+            this.showMessage()
             setTimeout(() => {
                this._Router.navigate(['/orders','New'])
             }, 1000);
              
           }
         },
-        error: (error :HttpErrorResponse)=> {
-        this.formErrorMsg=error.message
+        error: (error)=> {
+          console.log(error)
+        this.formErrorMsg=error
         this.loading=false
+        this.showErrMessage()
         },
       });
     } else {
       console.log('Form is invalid',this.orderForm.value);
       this.orderForm.markAllAsTouched()
+      this.showErrMessage()
     }
   }
   }
@@ -163,6 +181,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       }
      })
      if(this.orderId!=0){
+      this.edit=true
        this._AdminOrdersService.getOrderById(this.orderId).pipe(takeUntil(this.destroy$)).subscribe({
         next:(res)=>{
           console.log('order by id',res)
@@ -173,7 +192,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
           this.isvallage=res.isVillageDelivery
           this.isVillageDelivery.setValue(res.isVillageDelivery)
           this.villageStreetAddress.setValue(res.villageStreetAddress)
-          this.paymentMethod.setValue(res.paymentMethod)
+          this.paymentType.setValue(res.paymentType)
           this.shippingMethod.setValue(res.shippingMethod)
           this.governorateId.setValue(res.governorateId)
           this.shippingTypeId.setValue(res.shippingTypeId)
@@ -182,6 +201,8 @@ export class AddOrderComponent implements OnInit, OnDestroy {
           this.merchantAddress.setValue(res.address)
           this.price.setValue(res.orderPrice)
           this.branchId.setValue(res.branchId)
+          this.selectedCityeId=res.cityId
+           this.merchentId.setValue(res.merchentId)
           // this.oldgvrn=this.governrates.find((g)=>g.id==this.governorateId.value)?.name
           // console.log(this.oldgvrn)
           this.products.clear();
@@ -318,8 +339,8 @@ export class AddOrderComponent implements OnInit, OnDestroy {
   get villageStreetAddress(){
     return this.orderForm.controls['villageStreetAddress']
    }
-  get paymentMethod(){
-    return this.orderForm.controls['paymentMethod']
+  get paymentType(){
+    return this.orderForm.controls['paymentType']
    }
   get shippingMethod(){
     return this.orderForm.controls['shippingMethod']
@@ -343,7 +364,20 @@ export class AddOrderComponent implements OnInit, OnDestroy {
      return this.orderForm.controls['merchentId']
    }
 
-   
+   showMessage() {
+    this.snackBar.open('Action completed!', 'Close', {
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar']
+    })
+  }
+   showErrMessage() {
+    this.snackBar.open('InValid Data', 'Close', {
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar']
+    })
+  }
  
    slide(){
     this.isvallage=!this.isvallage

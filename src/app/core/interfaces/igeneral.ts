@@ -45,7 +45,7 @@ export interface IOrderById{
   isVillageDelivery :boolean;
   orderPrice : number;
   orderStatus : string;
-  paymentMethod : number;
+  paymentType : string;
   products:[name:string,quantity:number,weight:number]
   shippingMethod :string
   shippingTypeId :number;
@@ -54,6 +54,7 @@ export interface IOrderById{
   phonenumber:string;
   address:string;
   branchId:number;
+  merchentId:number
 }
 
 ///////////////////////////////////branches component//////////////////////////

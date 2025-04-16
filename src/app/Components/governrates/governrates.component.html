@@ -58,12 +58,12 @@
                 <td>{{$index+1}}</td>
                 <td>{{gvrn.name}}</td>
                 <td><label class="switch">
-                    <input type="checkbox" [checked]="!gvrn.isDeleted">
+                    <input type="checkbox" [checked]="!gvrn.isDeleted" disabled>
                      <span class="slider round"></span>
                     </label>
                     </td> 
                 <td>
-                    <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
+                    <button class="btn btn-success btn-sm" (click)="settingActive(gvrn.id)" ><i class="fa-solid fa-pen"></i></button>
                 </td>
                  
             </tr>

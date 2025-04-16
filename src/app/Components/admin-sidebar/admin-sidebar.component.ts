@@ -19,6 +19,7 @@ export class AdminSidebarComponent {
     this.isActive = !this.isActive;
   }
    settingActive(){
+    
     this.settingClicked=!this.settingClicked
     console.log(this.settingClicked)
     this.dialog.open(WeightsettingsModalComponent, {

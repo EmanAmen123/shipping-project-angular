@@ -1,222 +1,12 @@
-    <!-- <div class="container">
-        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-       
-            <div class="form-group col-md-4">
-                <label for="type">type</label>
-                <select id="type" class="form-control" formControlName="shippingMethod">
-                    <option selected>Select type </option>
-                    <option value="FromCompanyBranch">From Company Branch</option>
-                    <option value="FromMerchentBranch">From Merchent Branch</option>
-                </select>
-                @if (shippingMethod.touched) {
-                    <div class="alert alert-danger w-50">
-                        @if (shippingMethod.hasError('required')) {
-                            <p  class="m-0">Shipping Method is required </p>
-                        }
-                    </div>
-                     @if (shippingMethod.hasError('required')) {
-                        <div  class="form-text text-danger">Shipping Method is required </div>
-                    } -->
-                <!-- }
-            </div>
-          
-            <div>
-              <label>Customer Name:</label>
-              <input 
-              id="customerName" 
-              formControlName="customerName" 
-              [ngClass]="{
-                'is-valid': customerName.valid && (customerName.touched || customerName.dirty),
-                'is-invalid': customerName.invalid && (customerName.touched || customerName.dirty)
-              }" 
-              class="form-control" 
-            />
-              @if (customerName.touched|| customerName.dirty) {
-                @if (customerName.hasError('required')) {
-                    <div  class="form-text text-danger">customer Name is required </div>
-                }
-                @if (customerName.hasError('minlength')) {
-                    <div  class="form-text text-danger">minimum 3 charachters </div>
-                }
-              }
-            </div>
-          
-            <div>
-              <label>Phone:</label>
-              <input formControlName="customerPhone" />
-              @if (customerPhone.touched || customerPhone.dirty) {
-                @if (customerPhone.hasError('required')) {
-                    <div  class="form-text text-danger">customer Phone number is required </div>
-                }
-                @if (customerPhone.hasError('pattern')) {
-                    <div  class="form-text text-danger">enter a valid Phone number </div>
-                }
-              }
-            </div>
-          
-            <div>
-              <label>Email:</label>
-              <input formControlName="customerEmail" />
-              @if (customerEmail.touched || customerEmail.dirty) {
-                @if (customerEmail.hasError('required')) {
-                    <div  class="form-text text-danger">customer Email is required </div>
-                }
-                @if (customerEmail.hasError('email')) {
-                    <div  class="form-text text-danger">Enter a valid Email </div>
-                }
-    
-              }
-            </div>
-            <div >
-                <label for="governrate"> Governrate </label>
-    
-                <select id="governrate" class="form-control" (change)="onGovernrateChange($event)" formControlName="governorateId">
-                <option disabled selected>Select Governrate</option>
-                    @for (gvrn of governrates; track gvrn.id) {
-                            <option [value]="gvrn.id">{{ gvrn.name }}</option>
-                                                             }
-                </select>
-                @if (governorateId.touched) {
-                    @if (governorateId.hasError('required')) {
-                        <div  class="form-text text-danger">governorate is required </div>
-                    }
-                  }
-            </div>
-           
-             <div>
-                <label class="switch">
-                    <input type="checkbox" formControlName="isVillageDelivery" [value]="isvallage" (change)="slide()"  >
-                    <span class="slider round"></span>
-                  </label>
-             </div>
-             @if (isvallage) {
-                <div>
-                    <label>Village and street:</label>
-                    <input formControlName="villageStreetAddress" />
-                  </div>
-             }
-    
-            <div class="form-group col-md-4">
-                <label for="deliverytype">Shipping Type </label>
-                <select id="deliverytype" class="form-control" formControlName="shippingTypeId">
-                    <option selected>Select Shipping Type</option>
-                    @for (type of shippingTypes; track $index) {
-                    <option [value]="type.id">{{type.type}}</option>
-                         
-                    }
-    
-                </select>
-                @if (shippingTypeId.touched) {
-                    @if (shippingTypeId.hasError('required')) {
-                        <div  class="form-text text-danger">shipping Type is required </div>
-                    }
-                  }
-            </div>
-            <div class="form-group col-md-4">
-                <label for="paymentType"> Payment</label>
-                <select id="paymentType" class="form-control" formControlName="paymentMethod">
-                    <option selected>اختر نوع الدفع</option>
-                    <option value="Cash"> Cash</option>
-                    <option value="Credit"> Credit</option>
-                    <option value="Order"> Order</option>
-                </select>
-                @if (paymentMethod.touched) {
-                    @if (paymentMethod.hasError('required')) {
-                        <div  class="form-text text-danger">payment Method is required </div>
-                    }
-                  }
-            </div>
-            <div class="form-group col-md-4">
-                <label for="city">City</label>
-                <select id="city" class="form-control" formControlName="cityId">
-                    <option selected> Select City</option>
-                    @for (city of gvrnCities; track $index) {
-                    <option [value]="city.id">{{city.name}}</option>
-                     
-                    }
-                </select>
-                @if (cityId.touched) {
-                    @if (cityId.hasError('required')) {
-                        <div  class="form-text text-danger">city is required </div>
-                    }
-                  }
-            </div>
-           
-          
-            <h3>Products</h3>
-            <div formArrayName="products">
-                @for (product of products.controls;  let i= $index;track i) {
-                    <div  [formGroupName]="i">
-                        <hr />
-                        <label>Name:</label>
-                        <input formControlName="name" />
-                        @if (product.get('name')?.touched || product.get('name')?.dirty) {
-                            @if (product.get('name')?.hasError('required')) {
-                                <div  class="form-text text-danger">product name is required </div>
-                            }
-                          }
-                        <label>Quantity:</label>
-                        <input type="number" formControlName="quantity" />
-                        @if (product.get('quantity')?.touched || product.get('quantity')?.dirty) {
-                            @if (product.get('quantity')?.hasError('required')) {
-                                <div  class="form-text text-danger">quantity is required </div>
-                            }
-                            @if (product.get('quantity')?.hasError('min')) {
-                                <div  class="form-text text-danger">minimum one product </div>
-                            }
-                          }
-                        <label>Weight:</label>
-                        <input type="number" formControlName="weight" />
-                        @if (product.get('weight')?.touched || product.get('weight')?.dirty) {
-                            @if (product.get('weight')?.hasError('required')) {
-                                <div  class="form-text text-danger">weight is required </div>
-                            }
-                            @if (product.get('weight')?.hasError('min')) {
-                                <div  class="form-text text-danger">minimum 0.1 </div>
-                            }
-                          }
-                        <button type="button" (click)="removeProduct(i)">Delete</button>
-                      </div>
-                }
-             
-            </div>
-          
-            <button type="button" (click)="addProduct()">Add Product</button>
-             
-            <br /><br />
-            <label>price:</label>
-            <input type="number" formControlName="orderPrice" />
-            @if (price.touched || price.dirty) {
-                @if (price.hasError('required')) {
-                    <div  class="form-text text-danger">price is required </div>
-                }
-              }
-            <label>wieght:</label>
-            <input type="number" formControlName="totalWeight" readonly>
-                <br /><br />
-           
-            <button type="submit" >
-                @if (loading) {
-                    <i class="fas fa-spin fa-spinner"></i> 
-                }@else {
-                    Submit Order
-                }
-            </button>
-            @if (formErrorMsg) {
-            <p class="alert alert-danger w-50 m-0">{{formErrorMsg}}</p>
-                 
-            }
-
-
-
-          </form>
-          
-    </div>  -->
-    
-
 
     <div class="orders-wrapper">
+      @if (!edit) {
         <h2 class="orders-title">Add Order</h2>
+       
+      }@else {
+        <h2 class="orders-title">Edit Order</h2>
+         
+      }
         
         <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
           <div class="row g-4">
@@ -226,7 +16,7 @@
                 'is-valid': shippingMethod.valid && (shippingMethod.touched || shippingMethod.dirty),
                 'is-invalid': shippingMethod.invalid && (shippingMethod.touched || shippingMethod.dirty)
               }" >
-                <option selected>Select type </option>
+                <option selected disabled>Select type </option>
                 <option value="FromCompanyBranch">From Company Branch</option>
                 <option value="FromMerchentBranch">From Merchent Branch</option>
             </select>
@@ -295,7 +85,7 @@
                     'is-valid': governorateId.valid && (governorateId.touched || governorateId.dirty),
                     'is-invalid': governorateId.invalid && (governorateId.touched || governorateId.dirty)
                   }">
-                    <option  selected>  Select Governrate</option>
+                    <option  selected disabled>  Select Governrate</option>
                         @for (gvrn of governrates; track gvrn.id) {
                                 <option [ngValue]="gvrn.id"> {{ gvrn.name }}</option>
                                                                  }
@@ -309,11 +99,11 @@
     
               <div class="col-md-6">
                 <label class="form-label">City</label>
-                <select id="city" class="form-select" formControlName="cityId" [ngClass]="{
+                <select id="city" class="form-select" [(ngModel)]="selectedCityeId" formControlName="cityId" [ngClass]="{
                     'is-valid': cityId.valid && (cityId.touched || cityId.dirty),
                     'is-invalid': cityId.invalid && (cityId.touched || cityId.dirty)
                   }">
-                    <option  selected> Select City</option>
+                    <option  selected disabled> Select City</option>
                     @for (city of gvrnCities; track city.id) {
                     <option [ngValue]="city.id">{{city.name}}</option>
                      
@@ -332,7 +122,7 @@
                     'is-valid': shippingTypeId.valid && (shippingTypeId.touched || shippingTypeId.dirty),
                     'is-invalid': shippingTypeId.invalid && (shippingTypeId.touched || shippingTypeId.dirty)
                   }">
-                    <option selected>Select Shipping Type</option>
+                    <option selected disabled>Select Shipping Type</option>
                     @for (type of shippingTypes; track $index) {
                     <option [ngValue]="type.id">{{type.type}}</option>
                     }
@@ -346,17 +136,17 @@
     
               <div class="col-md-6">
                 <label class="form-label">Payment Type</label>
-                <select id="paymentType" class="form-select" formControlName="paymentMethod" [ngClass]="{
-                    'is-valid': paymentMethod.valid && (paymentMethod.touched || paymentMethod.dirty),
-                    'is-invalid': paymentMethod.invalid && (paymentMethod.touched || paymentMethod.dirty)
+                <select id="paymentType" class="form-select" formControlName="paymentType" [ngClass]="{
+                    'is-valid': paymentType.valid && (paymentType.touched || paymentType.dirty),
+                    'is-invalid': paymentType.invalid && (paymentType.touched || paymentType.dirty)
                   }">
                     <option disabled selected>Payment Method</option>
                     <option value="Cash"> Cash</option>
                     <option value="Credit"> Credit</option>
                     <option value="Order"> Order</option>
                 </select>
-                @if (paymentMethod.touched) {
-                    @if (paymentMethod.hasError('required')) {
+                @if (paymentType.touched) {
+                    @if (paymentType.hasError('required')) {
                         <div  class="form-text text-danger">payment Method is required </div>
                     }
                   }
@@ -368,10 +158,16 @@
                   'is-valid': branchId.valid && (branchId.touched || branchId.dirty),
                   'is-invalid': branchId.invalid && (branchId.touched || branchId.dirty)
                 }">
+                  <option selected disabled>Select Branch</option>
                   @for (branch of branches; track branch.id) {
                     <option [ngValue]="branch.id">{{branch.name}}</option>
                   }
                 </select>
+                @if (branchId.touched) {
+                  @if (branchId.hasError('required')) {
+                      <div  class="form-text text-danger">Branch is required </div>
+                  }
+                }
               </div>
               <div class="col-md-6">
                 <label class="form-label">Merchant</label>
@@ -383,6 +179,11 @@
                     <option [ngValue]="merchant.id">{{merchant.userName}}</option>
                   }
                 </select>
+                @if (merchentId.touched) {
+                  @if (merchentId.hasError('required')) {
+                      <div  class="form-text text-danger">Merchant is required </div>
+                  }
+                }
               </div>
                 <div class="form-check form-switch col-md-4 mt-5  ">
                   <label class="form-label">Shipping to Village?</label>
@@ -414,6 +215,14 @@
                               formControlName="name"
                               placeholder="Enter product name"
                             />
+                            @if (product.get('name')?.touched || product.get('name')?.dirty) {
+                              @if (product.get('name')?.hasError('required')) {
+                                <div class="form-text text-danger">Product Name Is Required</div>
+                              }
+                              @if (product.get('name')?.hasError('minLength')) {
+                                <div class="form-text text-danger">Minimum 3 Characters</div>
+                              }
+                            }
                           </div>
 
         <div class="col-md-3">
@@ -457,17 +266,39 @@
   </button>
 </div>
 
-      <!-- /////////////////Merchant Data////////////////////// -->
+      <!-- /////////////////Merchant Data////////////////////// --> merchantphonenumber
        <div  class="card mb-1 p-3 shadow-sm">
           <h5>Merchant Data</h5>
          <div class="row g-3 align-items-center">
               <div class="col-md-4">
                     <label class="form-label fw-semibold">Phone Number</label>
-                    <input  formControlName="phonenumber" class="form-control" placeholder="Enter Phone Number" />
+                    <input  formControlName="phonenumber" class="form-control" placeholder="Enter Phone Number"  [ngClass]="{
+                      'is-valid': merchantphonenumber.valid && (merchantphonenumber.touched || merchantphonenumber.dirty),
+                      'is-invalid': merchantphonenumber.invalid && (merchantphonenumber.touched || merchantphonenumber.dirty)
+                    }" />
+                    @if (merchantphonenumber.touched || merchantphonenumber.dirty) {
+                      @if (merchantphonenumber.hasError('required')) {
+                          <div  class="form-text text-danger">merchant phonenumber is required </div>
+                      }
+                      @if (merchantphonenumber.hasError('pattern')) {
+                          <div  class="form-text text-danger">Enter Valid Phone Number</div>
+                      }
+                    }
                </div>
               <div class="col-md-3">
                      <label class="form-label fw-semibold">Address</label>
-                     <input type="text" formControlName="address" class="form-control" placeholder="Enter Address" />
+                     <input type="text" formControlName="address" class="form-control" placeholder="Enter Address"  [ngClass]="{
+                      'is-valid': merchantAddress.valid && (merchantAddress.touched || merchantAddress.dirty),
+                      'is-invalid': merchantAddress.invalid && (merchantAddress.touched || merchantAddress.dirty)
+                    }" />
+                     @if (merchantAddress.touched || merchantAddress.dirty) {
+                      @if (merchantAddress.hasError('required')) {
+                          <div  class="form-text text-danger">merchant Address is required </div>
+                      }
+                      @if (merchantAddress.hasError('minLength')) {
+                          <div  class="form-text text-danger">Minimum 3 characters</div>
+                      }
+                    }
                </div>
         </div>
       </div>
@@ -495,7 +326,7 @@
                 <label class="form-label">Total Wieght</label>
                 <input type="number" class="form-control" formControlName="totalWeight" readonly >
               </div>
-          <button type="submit" class="submit-btn">Submit</button>
+          <button type="submit" class="submit-btn" >Submit</button>
           </div>
         </form>
       

@@ -31,6 +31,17 @@ export class LoginService {
       console.log('no token')
     }
   }
+
+
+
+  getUserRole(){
+    return this.userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
+    
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
+  }
   logout():void{
     localStorage.removeItem('token')
     this.userData=null

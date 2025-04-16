@@ -51,3 +51,10 @@ body {
   .cursor{
     cursor: pointer;
   }
+
+  .custom-snackbar {
+  background: #124f6f !important;
+    color: #ffff !important;
+    font-weight: bold;
+    font-size: 16px;
+  }

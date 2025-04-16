@@ -22,34 +22,25 @@
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
           <li><a class="dropdown-item p-2 " routerLinkActive="nav-active" (click)="settingActive()">weight Settings</a></li>
-          <li><a class="dropdown-item p-2" [routerLink]="['/branches']" routerLinkActive="nav-active">Another action</a></li>
-          <li><a class="dropdown-item p-2" [routerLink]="['/emo']" routerLinkActive="nav-active">Something else here</a></li>
+          <li><a class="dropdown-item p-2" [routerLink]="['/branches']" routerLinkActive="nav-active">Branches</a></li>
         </ul>
        </div>
        
-     <div  class="nav-item dropdown" [ngClass]="{'nav-active':settingClicked}" >
-      <a class="nav-link dropdown-toggle menu-item " data-tooltip="Users" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+     
+     <a [routerLink]="['/employees']" routerLinkActive="nav-active">
+      <div class="menu-item" data-tooltip="Employees">
         <i class="fa-solid fa-users"></i>
-        <span>Users <i class="fa-solid fa-caret-down"></i></span>
+        <span>Employees</span>
+      </div>
       </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-        <li><a class="dropdown-item p-2 " routerLinkActive="nav-active" [routerLink]="['/employees']" >Employees</a></li>
-        <li><a class="dropdown-item p-2" [routerLink]="['']" routerLinkActive="nav-active">Merchants</a></li>
-        <li><a class="dropdown-item p-2" [routerLink]="['']" routerLinkActive="nav-active">Representatives</a></li>
-      </ul>
-     </div>
 
-     <div  class="nav-item dropdown" [ngClass]="{'nav-active':settingClicked}" >
-      <a class="nav-link dropdown-toggle menu-item " data-tooltip="Areas" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">                
+    
+     <a [routerLink]="['/governrates']" routerLinkActive="nav-active">
+      <div class="menu-item" data-tooltip="Governrates">
         <i class="fa-solid fa-truck-fast"></i>
-        <span>Areas <i class="fa-solid fa-caret-down"></i> </span>
+        <span>Governrates</span>
+      </div>
       </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-        <li><a class="dropdown-item p-2 " routerLinkActive="nav-active" [routerLink]="['/governrates']" >Governrates</a></li>
-        <li><a class="dropdown-item p-2" [routerLink]="['']" routerLinkActive="nav-active">Cities</a></li>
-      </ul>
-     </div>
-
       <a [routerLink]="['/orders','All']" routerLinkActive="nav-active">
         <div class="menu-item" data-tooltip="Orders">
           <i class="fa-solid fa-bag-shopping"></i>

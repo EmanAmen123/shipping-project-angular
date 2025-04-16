@@ -22,7 +22,7 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
   order?: IOrder;
   empityOrder!: { data: [], message: string };
   hasPendingOrders: boolean = false;
-  
+  selectedorderid!:number
   // Pagination
   currentPage: number = 1;
   pageSize: number = 10;
@@ -79,14 +79,14 @@ this.hasPendingOrders = this.orders.some(order => order.orderStatus === 'Pending
   goToPage(page: number): void {
     if (page >= 1 && page <= this.totalPages) {
       this.currentPage = page;
-      this.getOrdersByStatus(); // Use class-level currentStatus
+      this.getOrdersByStatus(); 
     }
   }
 
   onPageSizeChange(event: Event): void {
     this.pageSize = +(event.target as HTMLSelectElement).value;
     this.currentPage = 1;
-    this.getOrdersByStatus(); // Use class-level currentStatus
+    this.getOrdersByStatus(); 
   }
 
   deleteorder(orderId: number): void {
@@ -100,53 +100,50 @@ this.hasPendingOrders = this.orders.some(order => order.orderStatus === 'Pending
     this.order = this.orders.find((order) => order.id === orderId);
   }
   //////modal//////////////
-      settingActive(orderid:number){
-         console.log(orderid)
-         this.dialog.open(EditOrderStatusModalComponent, {
-           width: '600px',
-           height:'300px',
-           
-           data: {orderid } 
-         });
-        }
-   
-      openModal() {
-       const dialogRef = this.dialog.open(EditOrderStatusModalComponent, {
-         width: '400px',
-         data: { } 
-       });
-     
-       dialogRef.afterClosed().subscribe(result => {
-         if (result) {
-           console.log('Modal result:', result);
-         }
-       });
-     }
+  settingActive(orderid: number) {
+    console.log(orderid);
+    this.selectedorderid = orderid;
+  
+    const dialogRef = this.dialog.open(EditOrderStatusModalComponent, {
+      width: '600px',
+      height: '300px',
+      data: { orderid }
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      console.log('Dialog closed with result:', result);
+      console.log('Selected order ID:', this.selectedorderid);
+  
+      if (result === true) {
+        this.orders = this.orders.filter(
+          (order: IOrder) => order.id !== this.selectedorderid
+        );
+  
+      }
+    });
+  }
+  
   //////modal assign order//////////////
-      assign(orderid:number,gov:string){
-         console.log('id',orderid)
-         console.log('gov',gov)
-         this.dialog.open(AssignorderModalComponent, {
-           width: '600px',
-           height:'300px',
-           
-           data: {orderid ,gov} 
-         });
-        }
-   
-      openModalassign() {
-       const dialogRef = this.dialog.open(AssignorderModalComponent, {
-         width: '400px',
-         data: { } 
-       });
-     
-       dialogRef.afterClosed().subscribe(result => {
-         if (result) {
-           console.log('Modal result:', result);
-         }
-       });
-     }
-
+  assign(orderid: number, gov: string) {
+    this.selectedorderid = orderid;
+    console.log('id', orderid);
+    console.log('gov', gov);
+  
+    const dialogRef = this.dialog.open(AssignorderModalComponent, {
+      width: '600px',
+      height: '300px',
+      data: { orderid, gov }
+    });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Assign modal result:', result);
+  
+       
+      }
+    });
+  }
+  
 
   //////////////////////////
   ngOnDestroy(): void {

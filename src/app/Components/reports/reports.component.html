@@ -5,7 +5,7 @@
       <h2 class="orders-title">Order Reports</h2>
       
     </div>
-    <div class="row box">
+    <div class="row box ">
       <div class="col-md-3">
         <select class="form-select " (change)="getRebortByStatus($event)">
           <option selected disabled>Select Statue</option>
@@ -34,7 +34,8 @@
 
        
     </div>
-    <select class="form-select w-auto d-inline-block mx-2" (change)="onPageSizeChange($event)">
+    
+    <select class="form-select w-auto d-inline-block mt-2 " (change)="onPageSizeChange($event)">
       <option disabled selected>Select Page Size</option>
       <option *ngFor="let size of pageSizes" [value]="size">{{size}}</option>
     </select>

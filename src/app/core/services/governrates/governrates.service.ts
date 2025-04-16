@@ -20,9 +20,9 @@ export class GovernratesService {
   addGovernrate(gvrn:any):Observable<any>{
     return this._httpClient.post(`${this.baseurl}`,gvrn)
   } 
-  editGovernrate(gvrn:any,gvrnId:number):Observable<any>
+  editGovernrate(gvrnname:string,gvrnId:number):Observable<any>
   {
-    return this._httpClient.put(`${this.baseurl}/${gvrnId}`,gvrn)
+    return this._httpClient.put(`${this.baseurl}/${gvrnId}`,gvrnname)
   }
   
   getAllCities():Observable<ICity[]>

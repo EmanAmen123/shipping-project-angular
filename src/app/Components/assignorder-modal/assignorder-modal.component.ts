@@ -4,6 +4,8 @@ import {  FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { AdminService } from '../../core/services/adding/admin.service';
 import { Subject, takeUntil } from 'rxjs';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSnackBar } from '@angular/material/snack-bar';
 @Component({
   selector: 'app-assignorder-modal',
   imports: [CommonModule, ReactiveFormsModule, MatDialogModule,FormsModule],
@@ -20,7 +22,9 @@ export class AssignorderModalComponent implements OnInit{
   constructor(
     public dialogRef: MatDialogRef<AssignorderModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { orderid: number,gov:string },
-    private _AdminService: AdminService
+    private _AdminService: AdminService,
+    private snackBar: MatSnackBar
+
   ) {
   }
 
@@ -44,16 +48,32 @@ export class AssignorderModalComponent implements OnInit{
     this._AdminService.assignOrder(this.selectedid,this.data.orderid).subscribe({
       next: (res) => {
         console.log('assigned:', res);
+        this.showMessage()
         this.dialogRef.close(true); 
       },
       error: (err) => {
        this.errmsg="you should select one option"
         console.error('Failed to assign:', err);
+        this.showErrMessage()
       }
     });
   }
   closeModal() {
     this.dialogRef.close();
+  }
+  showMessage() {
+    this.snackBar.open('Order Assigned Successfully', 'Close', {
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar']
+    })
+  }
+   showErrMessage() {
+    this.snackBar.open('Something Wrong', 'Close', {
+      duration: 2000,
+      verticalPosition: 'top',
+      panelClass: ['custom-snackbar']
+    })
   }
   ngOnDestroy(): void {
     this.destroy$.next();

@@ -32,7 +32,7 @@ export class LoginComponent {
       this._LoginService.login(formValue).pipe(takeUntil(this.destroy$)).subscribe({
           next:(res)=>{
               console.log('log in resp',res)
-              if(res.statusCode==200){
+              if(res.statusCode===200){
                   // save token
                   localStorage.setItem('token',res.data.token)
                   // decode token
