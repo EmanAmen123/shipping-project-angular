@@ -21,6 +21,7 @@ import { WeightsettingsModalComponent } from './Components/weightsettings-modal/
 import { DeliveryLayoutComponent } from './LayOuts/delivery-layout/delivery-layout.component';
 import { roleGuard } from './core/guards/role.guard';
 import { RolesService } from './core/services/permissions&employees/roles.service';
+import { DeliveryOrdersComponent } from './Components/delivery-orders/delivery-orders.component';
 
 export const routes: Routes = [
     // {path:'',component:AdminLayoutComponent,children:[  
@@ -70,7 +71,7 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent, title: 'login' },
 
     {
-      path: '',
+      path: 'admin',
       component: AdminLayoutComponent,
       canActivate: [authGuardGuard, roleGuard],
       data: { role: 'Admin' },
@@ -111,10 +112,14 @@ export const routes: Routes = [
       path: 'delivery',
       component: DeliveryLayoutComponent,
       canActivate: [authGuardGuard, roleGuard],
-      data: { role: 'delivery' },
-      children: []
+      data: { role: 'Delivery' },
+      children: [
+        {path:'',redirectTo: 'home', pathMatch: 'full'},
+        {path:'home',component:AdminHomeComponent},
+        {path:'orders',component:DeliveryOrdersComponent}
+      ]
     },
     
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-    { path: '**', redirectTo: '/login' }
+    { path: '**', component:NotFoundComponent }
 ]    

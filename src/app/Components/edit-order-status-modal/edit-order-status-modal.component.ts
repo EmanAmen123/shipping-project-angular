@@ -13,10 +13,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrl: './edit-order-status-modal.component.css'
 })
 export class EditOrderStatusModalComponent {
-  // searchStatus:string[]=["New","Pending","Delivered","PartiallyDelivered","CanceledByRecipient","Rejected","PaymentPending",
-  //   "CannotBeReached","Processing","Shipped","AwaitingConfirmation"
-  // ]
-  searchStatus:string[]=["Pending","CanceledByRecipient"]
+  searchStatus:string[]=["Pending","Delivered","PartiallyDelivered","CanceledByRecipient","Rejected","PaymentPending",
+    "CannotBeReached","Processing","Shipped","AwaitingConfirmation"
+  ]
+  // searchStatus:string[]=["Pending","CanceledByRecipient"]
   selectedStatus: string = '';
   constructor(
     public dialogRef: MatDialogRef<EditOrderStatusModalComponent>,
