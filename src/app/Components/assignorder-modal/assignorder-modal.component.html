@@ -1,0 +1,20 @@
+<div class="container">
+    <h4 class=" p-3">Assign Order </h4>
+  
+      <div>
+          <label class="form-label mt-0">select :</label>
+           <select class="form-select" [(ngModel)]="selectedid">
+            <option  disabled selected>Select</option>
+              @for (deliver of delivery; track $index) {
+                <option [value]="deliver.id" >{{deliver.name}}</option>
+              }
+  
+           </select>
+      </div>
+     
+    <button class="btn  save m-3" (click)="updateStatus()">Save</button>
+    <button class="btn btn-outline-danger " type="button" (click)="closeModal()">Cancel</button>
+      @if (errmsg) {
+        <div class="text-danger">{{errmsg}}</div>
+      }
+   </div>

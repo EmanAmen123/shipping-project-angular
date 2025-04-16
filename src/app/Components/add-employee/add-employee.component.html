@@ -1,0 +1,112 @@
+<div class="orders-wrapper">
+    <h2 class="orders-title">Add Employee</h2>
+    
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      <div class="row g-4">
+
+        <div class="col-md-6">
+          <label class="form-label">Name</label>
+          <input type="text" class="form-control" placeholder=" Name"  id="name" 
+          formControlName="name" 
+          [ngClass]="{
+            'is-valid': name.valid && (name.touched || name.dirty),
+            'is-invalid': name.invalid && (name.touched || name.dirty)
+          }" 
+        />
+          @if (name.touched|| name.dirty) {
+            @if (name.hasError('required')) {
+                <div  class="form-text text-danger">customer Name is required </div>
+            }
+            @if (name.hasError('minlength')) {
+                <div  class="form-text text-danger">minimum 3 charachters </div>
+            }
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Phone Number</label>
+          <input type="text" class="form-control" placeholder="Phone Number"  formControlName="phoneNumber"  [ngClass]="{
+            'is-valid': phoneNumber.valid && (phoneNumber.touched || phoneNumber.dirty),
+            'is-invalid': phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)
+          }" />
+          @if (phoneNumber.touched || phoneNumber.dirty) {
+            @if (phoneNumber.hasError('required')) {
+                <div  class="form-text text-danger">Phone number is required </div>
+            }
+            @if (phoneNumber.hasError('pattern')) {
+                <div  class="form-text text-danger">enter a valid Phone number </div>
+            }
+          }
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label">Email Address</label>
+          <input type="email" class="form-control" placeholder="Email Address" formControlName="email" [ngClass]="{
+            'is-valid': email.valid && (email.touched || email.dirty),
+            'is-invalid': email.invalid && (email.touched || email.dirty)
+          }" />
+          @if (email.touched || email.dirty) {
+            @if (email.hasError('required')) {
+                <div  class="form-text text-danger"> Email is required </div>
+            }
+            @if (email.hasError('email')) {
+                <div  class="form-text text-danger">Enter a valid Email </div>
+            }
+
+          }
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">password</label>
+          <input type="password" class="form-control" placeholder="password " formControlName="password" [ngClass]="{
+            'is-valid': password.valid && (password.touched || password.dirty),
+            'is-invalid': password.invalid && (password.touched || password.dirty)
+          }" />
+          @if (password.touched || password.dirty) {
+            @if (password.hasError('required')) {
+                <div  class="form-text text-danger"> password is required </div>
+            }
+
+          }
+        </div>
+        <div class="col-md-6">
+          <label class="form-label">address</label>
+          <input type="text" class="form-control" placeholder="address " formControlName="address" [ngClass]="{
+            'is-valid': address.valid && (address.touched || address.dirty),
+            'is-invalid': address.invalid && (address.touched || address.dirty)
+          }" />
+          @if (address.touched || address.dirty) {
+            @if (address.hasError('required')) {
+                <div  class="form-text text-danger"> address is required </div>
+            }
+            @if (address.hasError('minLength')) {
+                <div  class="form-text text-danger"> minimum 5 char </div>
+            }
+
+          }
+        </div>
+
+       
+
+          <div class="col-md-6">
+            <label class="form-label">branch</label>
+            <select id="branchId" class="form-select" formControlName="branchId" [ngClass]="{
+                'is-valid': branchId.valid && (branchId.touched || branchId.dirty),
+                'is-invalid': branchId.invalid && (branchId.touched || branchId.dirty)
+              }">
+                <option disabled selected> Select City</option>
+                @for (branch of branches; track branch.id) {
+                <option [value]="branch.id">{{branch.name}}</option>
+                 
+                }
+            </select>
+            @if (branchId.touched) {
+                @if (branchId.hasError('required')) {
+                    <div  class="form-text text-danger">Branch is required </div>
+                }
+              }
+          </div>
+
+      <button type="submit" class="submit-btn">Add Employee</button>
+      </div>
+    </form>
+  </div>

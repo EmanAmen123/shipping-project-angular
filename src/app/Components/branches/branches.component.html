@@ -1,11 +1,8 @@
-<div class="container mt-5">
-    <h2 class="text-center">الافرع</h2>
-    <div class="d-flex justify-content-between mb-3">
-        <input type="text" class="form-control w-25" placeholder="Search">
-    </div>
+<div class="container mt-5 w-75 m-auto">
+    <h2 class="orders-title mb-3">Branches</h2>
     
-    <table class="table table-bordered text-center">
-        <thead class="thead-light">
+    <table class="table table-hover align-middle mt-4 text-center ">
+        <thead class="table-light">
             <tr>
                 <th>#</th>
                 <th>Branch Name </th>
@@ -24,7 +21,7 @@
                         @if (branch.isDeleted) {
                         <input type="checkbox"  >
                         }
-                        <input type="checkbox" checked >
+                        <input type="checkbox" checked disabled>
                         <span class="slider round"></span>
                       </label>                      
                     </td>
@@ -38,3 +35,4 @@
         </tbody>
     </table>
 </div>
+

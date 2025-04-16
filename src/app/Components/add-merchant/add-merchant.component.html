@@ -1,0 +1,249 @@
+<div class="orders-wrapper">
+    <h2 class="orders-title">Add Merchant</h2>
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="row g-4">
+        <div class="col-md-6">
+            <label class="form-label">userName</label>
+            <input type="text" class="form-control" placeholder="Name" formControlName="userName" [ngClass]="{
+              'is-valid': userName.valid && (userName.touched || userName.dirty),
+              'is-invalid': userName.invalid && (userName.touched || userName.dirty)
+            }" />
+            @if (userName.touched || userName.dirty) {
+              @if (userName.hasError('required')) {
+                  <div  class="form-text text-danger">UserName is required </div>
+              }
+              @if (userName.hasError('minLength')) {
+                  <div  class="form-text text-danger">Minimum 4 characters </div>
+              }
+  
+            }
+          </div>
+         
+          <div class="col-md-6">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-control" placeholder="Email Address" formControlName="email" [ngClass]="{
+              'is-valid': email.valid && (email.touched || email.dirty),
+              'is-invalid': email.invalid && (email.touched || email.dirty)
+            }" />
+            @if (email.touched || email.dirty) {
+              @if (email.hasError('required')) {
+                  <div  class="form-text text-danger"> Email is required </div>
+              }
+              @if (email.hasError('email')) {
+                  <div  class="form-text text-danger">Enter a valid Email </div>
+              }
+  
+            }
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">Password</label>
+            <input type="password" class="form-control" placeholder="password" formControlName="password" [ngClass]="{
+              'is-valid': password.valid && (password.touched || password.dirty),
+              'is-invalid': password.invalid && (password.touched || password.dirty)
+            }" />
+            @if (password.touched || password.dirty) {
+              @if (password.hasError('required')) {
+                  <div  class="form-text text-danger"> password is required </div>
+              }
+  
+            }
+          </div>
+         
+          <!-- <div class="col-md-6">
+            <label class="form-label">Select Branches:</label>
+           <select class="form-select" formControlName="branchIds" multiple  [ngClass]="{
+            'is-valid': branchIds.valid && (branchIds.touched || branchIds.dirty),
+            'is-invalid': branchIds.invalid && (branchIds.touched || branchIds.dirty)
+          }" >
+            <option selected disabled>Select One Branch ro More</option>
+            @for (branch of branches; track $index) {
+              <option [value]="branch.id"> {{ branch.name }} </option>
+            }
+           
+          </select>
+          </div> -->
+        
+           <div class="col-md-6">
+            <mat-form-field appearance="outline" class="form-control">
+              <mat-label>Branches</mat-label>
+              <mat-select [formControl]="branchIdsControl" multiple >
+                @for (branch of branches; track branch.id) {
+                  <mat-option [value]="branch.id">{{ branch.name }}</mat-option>
+                }
+              </mat-select>
+            </mat-form-field>
+           </div>
+            
+
+
+         
+          <div class="col-md-6">
+            <label class="form-label">phoneNumber</label>
+            <input type="text" class="form-control" placeholder="phoneNumber" formControlName="phoneNumber" [ngClass]="{
+              'is-valid': phoneNumber.valid && (phoneNumber.touched || phoneNumber.dirty),
+              'is-invalid': phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)
+            }" />
+            @if (phoneNumber.touched || phoneNumber.dirty) {
+              @if (phoneNumber.hasError('required')) {
+                  <div  class="form-text text-danger">phoneNumber is required </div>
+              }
+              @if (phoneNumber.hasError('pattern')) {
+                  <div  class="form-text text-danger">Enter Valid Phone Number </div>
+              }
+  
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">address</label>
+            <input type="text" class="form-control" placeholder="address" formControlName="address" [ngClass]="{
+              'is-valid': address.valid && (address.touched || address.dirty),
+              'is-invalid': address.invalid && (address.touched || address.dirty)
+            }" />
+            @if (address.touched || address.dirty) {
+              @if (address.hasError('required')) {
+                  <div  class="form-text text-danger"> address is required </div>
+              }
+              @if (address.hasError('required')) {
+                  <div  class="form-text text-danger">minimum 6 charachters  </div>
+              }
+  
+            }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">Governrate</label>
+            <select id="governrate" class="form-select" (change)="onGovernrateChange($event)" formControlName="governorateId" [ngClass]="{
+                'is-valid': governorateId.valid && (governorateId.touched || governorateId.dirty),
+                'is-invalid': governorateId.invalid && (governorateId.touched || governorateId.dirty)
+              }">
+                <option disabled selected>Select Governrate</option>
+                    @for (gvrn of governrates; track gvrn.id) {
+                            <option [value]="gvrn.id">{{ gvrn.name }}</option>
+                                                             }
+                </select>
+                @if (governorateId.touched) {
+                    @if (governorateId.hasError('required')) {
+                        <div  class="form-text text-danger">governorate is required </div>
+                    }
+                  }
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">City</label>
+            <select id="city" class="form-select" formControlName="cityId" [ngClass]="{
+                'is-valid': cityId.valid && (cityId.touched || cityId.dirty),
+                'is-invalid': cityId.invalid && (cityId.touched || cityId.dirty)
+              }">
+                <option disabled selected> Select City</option>
+                @for (city of gvrnCities; track $index) {
+                <option [value]="city.id">{{city.name}}</option>
+                 
+                }
+            </select>
+            @if (cityId.touched) {
+                @if (cityId.hasError('required')) {
+                    <div  class="form-text text-danger">city is required </div>
+                }
+              }
+          </div>
+
+          <div class="col-md-6">
+            <label class="form-label">pickUpPrice</label>
+            <input type="number" class="form-control" placeholder="Name" formControlName="pickUpPrice" [ngClass]="{
+              'is-valid': pickUpPrice.valid && (pickUpPrice.touched || pickUpPrice.dirty),
+              'is-invalid': pickUpPrice.invalid && (pickUpPrice.touched || pickUpPrice.dirty)
+            }" />
+            @if (pickUpPrice.touched || pickUpPrice.dirty) {
+              @if (pickUpPrice.hasError('required')) {
+                  <div  class="form-text text-danger">pickUp Price is required </div>
+              }
+              @if (pickUpPrice.hasError('min')) {
+                  <div  class="form-text text-danger">Minimum 10 </div>
+              }
+  
+            }
+          </div>
+          <div class="col-md-6">
+            <label class="form-label">rejectedOrderPrice</label>
+            <input type="number" class="form-control" placeholder="Name" formControlName="rejectedOrderPrice" [ngClass]="{
+              'is-valid': rejectedOrderPrice.valid && (rejectedOrderPrice.touched || rejectedOrderPrice.dirty),
+              'is-invalid': rejectedOrderPrice.invalid && (rejectedOrderPrice.touched || rejectedOrderPrice.dirty)
+            }" />
+            @if (rejectedOrderPrice.touched || rejectedOrderPrice.dirty) {
+              @if (rejectedOrderPrice.hasError('required')) {
+                  <div  class="form-text text-danger">rejected Order Price </div>
+              }
+  
+            }
+          </div>
+
+                 <h4 class="">specialPackages</h4>
+                <div formArrayName="specialPackages">
+                 @for (specialPackage of specialPackages.controls; let i = $index; track i) {
+                <div [formGroupName]="i" class="card mb-1 p-3 shadow-sm">
+                  <div class="row g-3 align-items-center">
+                  <div class="col-md-4">
+                    <label class="form-label fw-semibold">Governrate</label>
+                    <select id="governrate" class="form-select" (change)="onGovernrateChange($event)" formControlName="governorateID">
+                        <option disabled selected>Select Governrate</option>
+                            @for (gvrn of governrates; track gvrn.id) {
+                                    <option [value]="gvrn.id">{{ gvrn.name }}</option>
+                                                                     }
+                        </select>
+                  @if (specialPackage.get('governorateID')?.touched || specialPackage.get('governorateID')?.dirty) {
+                  @if (specialPackage.get('governorateID')?.hasError('required')) {
+                 <div class="form-text text-danger">Governrate is required</div>
+                     }
+                   }
+                 </div>
+
+    <div class="col-md-3">
+      <label class="form-label fw-semibold">City</label>
+      <select id="city" class="form-select" formControlName="cityID" >
+        <option disabled selected> Select City</option>
+        @for (city of gvrnCities; track $index) {
+        <option [value]="city.id">{{city.name}}</option>
+         
+        }
+    </select>
+      @if (specialPackage.get('cityID')?.touched || specialPackage.get('cityID')?.dirty) {
+        @if (specialPackage.get('cityID')?.hasError('required')) {
+          <div class="form-text text-danger">city is required</div>
+        }
+        
+       }
+    </div>
+
+    <div class="col-md-3">
+      <label class="form-label fw-semibold">Shipping Price</label>
+      <input type="number" formControlName="shippingPrice" class="form-control" placeholder="Enter shipping Price" />
+      @if (specialPackage.get('shippingPrice')?.touched || specialPackage.get('shippingPrice')?.dirty) {
+        @if (specialPackage.get('shippingPrice')?.hasError('required')) {
+          <div class="form-text text-danger">shipping Price is required</div>
+        }
+        @if (specialPackage.get('shippingPrice')?.hasError('min')) {
+          <div class="form-text text-danger">Minimum 20</div>
+        }
+      }
+    </div>
+
+    <div class="col-md-2 d-flex align-items-end">
+      <button type="button" class="btn btn-outline-danger w-100" (click)="removespecialPackage(i)">
+        <i class="fa fa-trash"></i> Delete
+      </button>
+    </div>
+  </div>
+</div>
+}
+</div>
+<div class="text-end">
+<button type="button" class="btn  add" (click)="addSpecialPeckage()">
+<i class="fa fa-plus"></i> Add specialPackage
+</button>
+</div>
+
+      <button type="submit" class="submit-btn">Submit</button>
+      </div>
+    </form>
+  </div>

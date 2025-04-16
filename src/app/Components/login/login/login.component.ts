@@ -13,9 +13,10 @@ import { Router } from '@angular/router';
 export class LoginComponent {
     
   private destroy$ = new Subject<void>();
-   
+
+    
   private readonly _FormBuilder=inject(FormBuilder)
-  private readonly _login=inject(LoginService)
+  private readonly _LoginService=inject(LoginService)
   private readonly _Router=inject(Router)
   
   loginForm:FormGroup=this._FormBuilder.group({
@@ -28,18 +29,17 @@ export class LoginComponent {
      if(this.loginForm.valid){
       const formValue=this.loginForm.value
       console.log(formValue)
-      this._login.login(formValue).pipe(takeUntil(this.destroy$)).subscribe({
+      this._LoginService.login(formValue).pipe(takeUntil(this.destroy$)).subscribe({
           next:(res)=>{
               console.log('log in resp',res)
-              if(formValue.statusCode==200){
-                 setTimeout(() => {
+              if(res.statusCode==200){
                   // save token
                   localStorage.setItem('token',res.data.token)
                   // decode token
-                     
+                 this._LoginService.saveUserData()
+
                   // navigate
                   this._Router.navigate(['/home'])
-                 }, 1000);
               }
           },
           error:(err)=>{

@@ -1,54 +1,163 @@
+<div class="orders-wrapper">
+  <h2 class="orders-title">Add </h2>
+   
+    <form [formGroup]="addForm" (ngSubmit)="onSubmit()">
+      <div class="row g-4">
+        <div class="col-md-6">
+          <label class="form-label"> Name:</label>
+          <input id="name"  class="form-control" formControlName="name"  [ngClass]="{
+                                                                        'is-valid': name.valid && (name.touched || name.dirty),
+                                                                        'is-invalid': name.invalid && (name.touched || name.dirty)
+                                                                                    }" />
+          @if (name.touched|| name.dirty) {
+            @if (name.hasError('required')) {
+                <div  class="form-text text-danger"> Name is required </div>
+            }
+            @if (name.hasError('minlength')) {
+                <div  class="form-text text-danger">minimum 3 charachters </div>
+            }
+          }
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label">Email:</label>
+            <input formControlName="email"  type="email" class="form-control"  [ngClass]="{
+                'is-valid': email.valid && (email.touched || email.dirty),
+                'is-invalid': email.invalid && (email.touched || email.dirty)
+                            }"/>
+            @if (email.touched || email.dirty) {
+              @if (email.hasError('required')) {
+                  <div  class="form-text text-danger"> Email is required </div>
+              }
+              @if (email.hasError('email')) {
+                  <div  class="form-text text-danger">Enter a valid Email </div>
+              }
+  
+            }
+          </div>
 
-<div class="container mt-5">
-    <h2 class="text-center">إضافة مندوب</h2>
-    <form>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="name">الاسم</label>
-                <input type="text" class="form-control" id="name" placeholder="الاسم">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="branch">الفرع</label>
-                <input type="text" class="form-control" id="branch" placeholder="الفرع">
-            </div>
+        <div class="col-md-6">
+          <label class="form-label">password:</label>
+          <input formControlName="password" type="password" class="form-control"  [ngClass]="{
+            'is-valid': password.valid && (password.touched || password.dirty),
+            'is-invalid': password.invalid && (password.touched || password.dirty)
+                        }"/>
+          @if (password.touched || password.dirty) {
+            @if (password.hasError('required')) {
+                <div  class="form-text text-danger">password is required </div>
+            }
+            @if (password.hasError('pattern')) {
+                <div  class="form-text text-danger">password must start with capital letter , contain  {{'@'}} and at least one number </div>
+            }
+          }
         </div>
-        <div class="form-group col-md-6">
-            <label for="email">البريد الإلكتروني</label>
-            <input type="email" class="form-control" id="email" placeholder="البريد الإلكتروني">
+      
+        <div class="col-md-6">
+          <mat-form-field appearance="outline" class="form-control">
+            <mat-label>Branches</mat-label>
+            <mat-select [formControl]="branchIdsControl" multiple >
+              @for (branch of branches; track branch.id) {
+                <mat-option [value]="branch.id">{{ branch.name }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+         </div>
+        <div class="col-md-6">
+            <label class="form-label" for="governrate"> Governrate </label>
+            <select id="governrate" formControlName="governorateId" class="form-control"  [ngClass]="{
+                'is-valid': governorateId.valid && (governorateId.touched || governorateId.dirty),
+                'is-invalid': governorateId.invalid && (governorateId.touched || governorateId.dirty)
+                            }">
+            <option disabled selected>Select Governrate</option>
+                @for (gvrn of governrates; track gvrn.id) {
+                        <option [value]="gvrn.id">{{ gvrn.name }}</option>
+                                                         }
+            </select>
+            @if (governorateId.touched) {
+                @if (governorateId.hasError('required')) {
+                    <div  class="form-text text-danger">governorate is required </div>
+                }
+              }
         </div>
-        <div class="form-group col-md-6">
-            <label for="password">كلمة المرور</label>
-            <input type="password" class="form-control" id="password" placeholder="كلمة المرور">
+    
+        <div class="col-md-6">
+          <label class="form-label">Phone:</label>
+          <input formControlName="phoneNumber" formControlName="phoneNumber" class="form-control"  [ngClass]="{
+            'is-valid': phoneNumber.valid && (phoneNumber.touched || phoneNumber.dirty),
+            'is-invalid': phoneNumber.invalid && (phoneNumber.touched || phoneNumber.dirty)
+                        }" />
+          @if (phoneNumber.touched || phoneNumber.dirty) {
+            @if (phoneNumber.hasError('required')) {
+                <div  class="form-text text-danger"> Phone number is required </div>
+            }
+            @if (phoneNumber.hasError('pattern')) {
+                <div  class="form-text text-danger">enter a valid Phone number </div>
+            }
+          }
         </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="phone">رقم الهاتف</label>
-                <input type="tel" class="form-control" id="phone" placeholder="رقم الهاتف">
-            </div>
-            
+        <div class="col-md-6">
+          <label class="form-label">Address:</label>
+          <input formControlName="address"  class="form-control"  [ngClass]="{
+            'is-valid': address.valid && (address.touched || address.dirty),
+            'is-invalid': address.invalid && (address.touched || address.dirty)
+                        }"/>
+          @if (address.touched || address.dirty) {
+            @if (address.hasError('required')) {
+                <div  class="form-text text-danger">Address is required </div>
+            }
+           
+          }
         </div>
-            
-            <div class="form-group col-md-6">
-                <label for="governorate">المحافظة</label>
-                <select id="governorate" class="form-control">
-                    <option selected>اختر المحافظة</option>
-                    <option>محافظة 1</option>
-                    <option>محافظة 2</option>
-                </select>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="discount">نوع الخصم</label>
-                <select id="discount" class="form-control">
-                    <option> نسبة مئوية</option>
-                    <option> قيمة ثابتة</option>
-                </select>
-            </div>
+        <div class="col-md-6">
+            <label class="form-label" for="typeOfDiscount"> typeOfDiscount </label>
+            <select id="typeOfDiscount"  formControlName="typeOfDiscount" class="form-control"  [ngClass]="{
+                'is-valid': typeOfDiscount.valid && (typeOfDiscount.touched || typeOfDiscount.dirty),
+                'is-invalid': typeOfDiscount.invalid && (typeOfDiscount.touched || typeOfDiscount.dirty)
+                            }">
+            <option disabled selected>Select typeOfDiscount</option>
+             <option value="percentage">percentage</option>
+             <option value="Fixedvalue">Fixed value</option>
+                                                         
+            </select>
+            @if (typeOfDiscount.touched) {
+                @if (typeOfDiscount.hasError('required')) {
+                    <div  class="form-text text-danger">typeOfDiscount is required </div>
+                }
+              }
+        </div>
 
-        <div class="form-group">
-            <label for="ratio">نسبة الشركة من الطلب</label>
-            <input type="number" class="form-control col-md-6" id="ratio" value="0" >
-        </div>
+        <div class="col-md-6">
+            <label class="form-label">company Percent:</label>
+            <input formControlName="companyPercent" type="number" class="form-control"  [ngClass]="{
+                'is-valid': companyPercent.valid && (companyPercent.touched || companyPercent.dirty),
+                'is-invalid': companyPercent.invalid && (companyPercent.touched || companyPercent.dirty)
+                            }"/>
+            @if (companyPercent.touched || companyPercent.dirty) {
+              @if (companyPercent.hasError('required')) {
+                  <div  class="form-text text-danger">company Percentis required </div>
+              }
+            }
+          </div>
+         
+      
        
-        <button type="submit" class="btn btn-primary mt-1">حفظ</button>
-    </form>
+      
+      </div>
+      <button type="submit" class=" submit-btn" >
+        @if (loading) {
+            <i class="fas fa-spin fa-spinner"></i> 
+        }@else {
+            Submit Order
+        }
+    </button>
+
+      </form>
+      @if (formErrorMsg.length>0) {
+        <div class="alert alert-danger w-50 m-0 mt-2">
+          @for (err of formErrorMsg; track $index) {
+            <p class="m-0">{{err}}</p>
+              }
+        </div>
+      }
+      
 </div>

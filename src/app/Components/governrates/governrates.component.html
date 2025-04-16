@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<!-- <div class="container mt-5">
     <h2 class="text-center">المحافظات</h2>
     <div class="d-flex justify-content-between mb-3">
         <input type="text" class="form-control w-25" placeholder="Search">
@@ -14,65 +14,62 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>
-                    <button class="btn btn-success btn-sm">تعديل</button>
+            @for (gvrn of gvrns; track gvrn.id) {
+                <tr>
+                    <td>
+                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
+                        
+                    </td>
+                  
+                    <td><label class="switch">
+                    <input type="checkbox" [checked]="!gvrn.isDeleted">
+                     <span class="slider round"></span>
+                    </label>
+                    </td>
+    
                     
-                </td>
-              
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-
-                
-                <td>القاهرة</td>
-                <td>1</td>
-            </tr>
-            <tr>
-               <td>
-                    <button class="btn btn-success btn-sm">تعديل</button>
-                    
-                </td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                
-                <td>المنوفية</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                               <td>
-                    <button class="btn btn-success btn-sm">تعديل</button>
-                    
-                </td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                
-                <td>المنصورة</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                               <td>
-                    <button class="btn btn-success btn-sm">تعديل</button>
-                    
-                </td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                
-                <td>المنوفية</td>
-                <td>4</td>
-            </tr>
+                    <td>{{gvrn.name}}</td>
+                    <td>{{$index+1}}</td>
+                </tr>
+          
+            }
+            
            
         </tbody>
     </table>
-</div>
+</div> -->
+
+
+
+<div class="container mt-5 w-75 m-auto">
+      <h2 class="orders-title mb-3">Governrates</h2>
+    <table class="table table-hover align-middle mt-4 text-center ">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Status</th>
+          <th>Settings</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (gvrn of gvrns; track gvrn.id) {
+            <tr>
+                <td>{{$index+1}}</td>
+                <td>{{gvrn.name}}</td>
+                <td><label class="switch">
+                    <input type="checkbox" [checked]="!gvrn.isDeleted">
+                     <span class="slider round"></span>
+                    </label>
+                    </td> 
+                <td>
+                    <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
+                </td>
+                 
+            </tr>
+        }
+      </tbody>
+    </table>
+  
+    <!-- pagination -->
+  </div>

@@ -46,11 +46,14 @@ export interface IOrderById{
   orderPrice : number;
   orderStatus : string;
   paymentMethod : number;
-  products:[]
+  products:[name:string,quantity:number,weight:number]
   shippingMethod :string
   shippingTypeId :number;
   totalWeight :number;
-  villageStreetAddress :string|null
+  villageStreetAddress :string|null;
+  phonenumber:string;
+  address:string;
+  branchId:number;
 }
 
 ///////////////////////////////////branches component//////////////////////////
@@ -60,3 +63,32 @@ export interface Ibranch{
   isDeleted :boolean;
   name : string;
 }
+///////////////////////////////////employee//////////////////////////
+
+export interface IEmployee{
+  name : string;
+  email :string; 
+  password :string;
+  address : string;
+  userRole: string;
+  phoneNumber: string;
+  branchId: number;
+}
+///////////////////////////////////Reports//////////////////////////
+
+export interface Ireport{
+  city : string;
+  companyPersent :number; 
+  customerName :string;
+  customerPhone : string;
+  governorate: string;
+  id: number;
+  merchantName: string;
+  orderDate: Date;
+  orderPrice: number;
+  orderStatus: string;
+  paidShippingPrice: number;
+  shippingPrice: number;
+  totalCoast: number;
+}
+/////////////////////////////status////////////////////////////////////////

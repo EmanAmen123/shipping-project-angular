@@ -1,108 +1,48 @@
-<div class="container mt-5">
-    <h2 class="text-center">الموظفين</h2>
-    <div class="d-flex justify-content-between mb-3">
-        <button class="btn btn-primary">إضافة موظف</button>
-        <input type="text" class="form-control w-25" placeholder="Search">
+ <div class="container my-5 w-75 m-auto">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="orders-title">Employees</h2>
+      <button class="btn add-order-btn" [routerLink]="['/addEmployee',0]" >
+        <i class="fa fa-plus me-2"></i> Add Employee
+      </button>
     </div>
-    
-    <table class="table table-bordered text-center">
-        <thead class="thead-light">
-            <tr>
-                <th>الاعدادات</th>
-                <th>الحالة</th>
-                <th>الصلاحيات</th>
-                <th>الفرع</th>
-                <th>رقم الهاتف</th>
-                <th>البريد الإلكتروني</th>
-                <th>الاسم</th>
-                <th>#</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><button class="btn btn-success"><i class="fa-solid fa-pen"></i></button></td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                <td>مدير</td>
-                <td>القاهرة</td>
-                <td>0568756589</td>
-                <td>groupqsfgmail.com</td>
-                <td>المدير</td>
-                <td>1</td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-success"><i class="fa-solid fa-pen"></i></button></td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                <td>سيلز</td>
-                <td>القاهرة</td>
-                <td>01258469523</td>
-                <td>adminadmin.test</td>
-                <td>admin</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-success"><i class="fa-solid fa-pen"></i></button></td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                <td>مدير</td>
-                <td>القاهرة</td>
-                <td>0112366987754</td>
-                <td>aa.a</td>
-                <td>admin</td>
-                <td>3</td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-success"><i class="fa-solid fa-pen"></i></button></td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                <td>مدير</td>
-                <td>القاهرة</td>
-                <td>25634674564</td>
-                <td>newusergmail.com</td>
-                <td>new user</td>
-                <td>4</td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-success"><i class="fa-solid fa-pen"></i></button></td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                <td>مدير فرع</td>
-                <td>القاهرة</td>
-                <td>01188885588</td>
-                <td>rehamgmail.com</td>
-                <td>Reham 3essam</td>
-                <td>5</td>
-            </tr>
-            <tr>
-                <td><button class="btn btn-success"><i class="fa-solid fa-pen"></i></button></td>
-                <td><label class="switch">
-  <input type="checkbox">
-  <span class="slider round"></span>
-</label>
-                </td>
-                <td>مدير فرع</td>
-                <td>القاهرة</td>
-                <td>3453457674</td>
-                <td>admin124423gmail.com</td>
-                <td>حاتم</td>
-                <td>6</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+        
+    <table class="table table-hover align-middle mt-4  text-center">
+      <thead class="table-light">
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Phone Number</th>
+          <th>Branch</th>
+          <th>Permissions</th>
+          <th>Status</th>
+          <th>Settings</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (employee of employees; track $index) {
+        <tr>
+          <td> {{$index+1}}</td>
+          <td>{{employee.name}}</td>
+          <td>{{employee.email}}</td>
+          <td>{{employee.phoneNumber}}</td>
+          <td>{{employee.branch}}</td>
+          <td>{{employee.userRole}}</td>
+          <td>
+            <label class="switch">              
+              <input type="checkbox" checked disabled >
+              <span class="slider round"></span>
+            </label> 
+          </td>
+          <td>
+            <button class="btn btn-sm edit-btn mx-1" ><i class="fa fa-pen"></i></button>
+            <button class="btn btn-danger btn-sm mx-1 " ><i class="fa-solid fa-trash"></i></button>
+            <button class="btn btn-primary btn-sm mx-1 "><i class="fa-solid fa-gear"></i></button>
+          </td>
+        </tr>
+      }
+      </tbody>
+    </table> 
+  
+     <!-- pagination  -->
+  </div> 

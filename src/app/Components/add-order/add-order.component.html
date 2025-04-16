@@ -1,4 +1,4 @@
-    <div class="container">
+    <!-- <div class="container">
         <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
        
             <div class="form-group col-md-4">
@@ -14,10 +14,10 @@
                             <p  class="m-0">Shipping Method is required </p>
                         }
                     </div>
-                    <!-- @if (shippingMethod.hasError('required')) {
+                     @if (shippingMethod.hasError('required')) {
                         <div  class="form-text text-danger">Shipping Method is required </div>
                     } -->
-                }
+                <!-- }
             </div>
           
             <div>
@@ -145,19 +145,40 @@
           
             <h3>Products</h3>
             <div formArrayName="products">
-              <div *ngFor="let product of products.controls; let i=index" [formGroupName]="i">
-                <hr />
-                <label>Name:</label>
-                <input formControlName="name" />
-          
-                <label>Quantity:</label>
-                <input type="number" formControlName="quantity" />
-          
-                <label>Weight:</label>
-                <input type="number" formControlName="weight" />
-          
-                <button type="button" (click)="removeProduct(i)">Delete</button>
-              </div>
+                @for (product of products.controls;  let i= $index;track i) {
+                    <div  [formGroupName]="i">
+                        <hr />
+                        <label>Name:</label>
+                        <input formControlName="name" />
+                        @if (product.get('name')?.touched || product.get('name')?.dirty) {
+                            @if (product.get('name')?.hasError('required')) {
+                                <div  class="form-text text-danger">product name is required </div>
+                            }
+                          }
+                        <label>Quantity:</label>
+                        <input type="number" formControlName="quantity" />
+                        @if (product.get('quantity')?.touched || product.get('quantity')?.dirty) {
+                            @if (product.get('quantity')?.hasError('required')) {
+                                <div  class="form-text text-danger">quantity is required </div>
+                            }
+                            @if (product.get('quantity')?.hasError('min')) {
+                                <div  class="form-text text-danger">minimum one product </div>
+                            }
+                          }
+                        <label>Weight:</label>
+                        <input type="number" formControlName="weight" />
+                        @if (product.get('weight')?.touched || product.get('weight')?.dirty) {
+                            @if (product.get('weight')?.hasError('required')) {
+                                <div  class="form-text text-danger">weight is required </div>
+                            }
+                            @if (product.get('weight')?.hasError('min')) {
+                                <div  class="form-text text-danger">minimum 0.1 </div>
+                            }
+                          }
+                        <button type="button" (click)="removeProduct(i)">Delete</button>
+                      </div>
+                }
+             
             </div>
           
             <button type="button" (click)="addProduct()">Add Product</button>
@@ -165,6 +186,11 @@
             <br /><br />
             <label>price:</label>
             <input type="number" formControlName="orderPrice" />
+            @if (price.touched || price.dirty) {
+                @if (price.hasError('required')) {
+                    <div  class="form-text text-danger">price is required </div>
+                }
+              }
             <label>wieght:</label>
             <input type="number" formControlName="totalWeight" readonly>
                 <br /><br />
@@ -185,5 +211,292 @@
 
           </form>
           
-    </div>
+    </div>  -->
     
+
+
+    <div class="orders-wrapper">
+        <h2 class="orders-title">Add Order</h2>
+        
+        <form [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="form-label">Type</label>
+              <select class="form-select" formControlName="shippingMethod"  [ngClass]="{
+                'is-valid': shippingMethod.valid && (shippingMethod.touched || shippingMethod.dirty),
+                'is-invalid': shippingMethod.invalid && (shippingMethod.touched || shippingMethod.dirty)
+              }" >
+                <option selected>Select type </option>
+                <option value="FromCompanyBranch">From Company Branch</option>
+                <option value="FromMerchentBranch">From Merchent Branch</option>
+            </select>
+            @if (shippingMethod.touched) {
+                 @if (shippingMethod.hasError('required')) {
+                    <div  class="form-text text-danger">Shipping Method is required </div>
+                }
+             }
+            </div>
+    
+            <div class="col-md-6">
+              <label class="form-label">Customer Name</label>
+              <input type="text" class="form-control" placeholder="Customer Name"  id="customerName" 
+              formControlName="customerName" 
+              [ngClass]="{
+                'is-valid': customerName.valid && (customerName.touched || customerName.dirty),
+                'is-invalid': customerName.invalid && (customerName.touched || customerName.dirty)
+              }" 
+            />
+              @if (customerName.touched|| customerName.dirty) {
+                @if (customerName.hasError('required')) {
+                    <div  class="form-text text-danger">customer Name is required </div>
+                }
+                @if (customerName.hasError('minlength')) {
+                    <div  class="form-text text-danger">minimum 3 charachters </div>
+                }
+              }
+            </div>
+    
+            <div class="col-md-6">
+              <label class="form-label">Phone Number</label>
+              <input type="text" class="form-control" placeholder="Phone Number"  formControlName="customerPhone"  [ngClass]="{
+                'is-valid': customerPhone.valid && (customerPhone.touched || customerPhone.dirty),
+                'is-invalid': customerPhone.invalid && (customerPhone.touched || customerPhone.dirty)
+              }" />
+              @if (customerPhone.touched || customerPhone.dirty) {
+                @if (customerPhone.hasError('required')) {
+                    <div  class="form-text text-danger">Phone number is required </div>
+                }
+                @if (customerPhone.hasError('pattern')) {
+                    <div  class="form-text text-danger">enter a valid Phone number </div>
+                }
+              }
+            </div>
+    
+            <div class="col-md-6">
+              <label class="form-label">Email Address</label>
+              <input type="email" class="form-control" placeholder="Email Address" formControlName="customerEmail" [ngClass]="{
+                'is-valid': customerEmail.valid && (customerEmail.touched || customerEmail.dirty),
+                'is-invalid': customerEmail.invalid && (customerEmail.touched || customerEmail.dirty)
+              }" />
+              @if (customerEmail.touched || customerEmail.dirty) {
+                @if (customerEmail.hasError('required')) {
+                    <div  class="form-text text-danger">customer Email is required </div>
+                }
+                @if (customerEmail.hasError('email')) {
+                    <div  class="form-text text-danger">Enter a valid Email </div>
+                }
+    
+              }
+            </div>
+    
+            <div class="col-md-6">
+                <label class="form-label">Governrate</label>
+                <select id="governrate" class="form-select" [(ngModel)]="selectedGovernrateId" (change)="onGovernrateChange()" formControlName="governorateId" [ngClass]="{
+                    'is-valid': governorateId.valid && (governorateId.touched || governorateId.dirty),
+                    'is-invalid': governorateId.invalid && (governorateId.touched || governorateId.dirty)
+                  }">
+                    <option  selected>  Select Governrate</option>
+                        @for (gvrn of governrates; track gvrn.id) {
+                                <option [ngValue]="gvrn.id"> {{ gvrn.name }}</option>
+                                                                 }
+                    </select>
+                    @if (governorateId.touched) {
+                        @if (governorateId.hasError('required')) {
+                            <div  class="form-text text-danger">governorate is required </div>
+                        }
+                      }
+              </div>
+    
+              <div class="col-md-6">
+                <label class="form-label">City</label>
+                <select id="city" class="form-select" formControlName="cityId" [ngClass]="{
+                    'is-valid': cityId.valid && (cityId.touched || cityId.dirty),
+                    'is-invalid': cityId.invalid && (cityId.touched || cityId.dirty)
+                  }">
+                    <option  selected> Select City</option>
+                    @for (city of gvrnCities; track city.id) {
+                    <option [ngValue]="city.id">{{city.name}}</option>
+                     
+                    }
+                </select>
+                @if (cityId.touched) {
+                    @if (cityId.hasError('required')) {
+                        <div  class="form-text text-danger">city is required </div>
+                    }
+                  }
+              </div>
+    
+              <div class="col-md-6">
+                <label class="form-label">Shipping Type</label>
+                <select id="deliverytype" class="form-select" formControlName="shippingTypeId"  [ngClass]="{
+                    'is-valid': shippingTypeId.valid && (shippingTypeId.touched || shippingTypeId.dirty),
+                    'is-invalid': shippingTypeId.invalid && (shippingTypeId.touched || shippingTypeId.dirty)
+                  }">
+                    <option selected>Select Shipping Type</option>
+                    @for (type of shippingTypes; track $index) {
+                    <option [ngValue]="type.id">{{type.type}}</option>
+                    }
+                </select>
+                @if (shippingTypeId.touched) {
+                    @if (shippingTypeId.hasError('required')) {
+                        <div  class="form-text text-danger">shipping Type is required </div>
+                    }
+                  }
+              </div>
+    
+              <div class="col-md-6">
+                <label class="form-label">Payment Type</label>
+                <select id="paymentType" class="form-select" formControlName="paymentMethod" [ngClass]="{
+                    'is-valid': paymentMethod.valid && (paymentMethod.touched || paymentMethod.dirty),
+                    'is-invalid': paymentMethod.invalid && (paymentMethod.touched || paymentMethod.dirty)
+                  }">
+                    <option disabled selected>Payment Method</option>
+                    <option value="Cash"> Cash</option>
+                    <option value="Credit"> Credit</option>
+                    <option value="Order"> Order</option>
+                </select>
+                @if (paymentMethod.touched) {
+                    @if (paymentMethod.hasError('required')) {
+                        <div  class="form-text text-danger">payment Method is required </div>
+                    }
+                  }
+              </div>
+    
+              <div class="col-md-6">
+                <label class="form-label">Branch</label>
+                <select class="form-select" formControlName="branchId" [ngClass]="{
+                  'is-valid': branchId.valid && (branchId.touched || branchId.dirty),
+                  'is-invalid': branchId.invalid && (branchId.touched || branchId.dirty)
+                }">
+                  @for (branch of branches; track branch.id) {
+                    <option [ngValue]="branch.id">{{branch.name}}</option>
+                  }
+                </select>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Merchant</label>
+                <select class="form-select" formControlName="merchentId" [ngClass]="{
+                  'is-valid': merchentId.valid && (merchentId.touched || merchentId.dirty),
+                  'is-invalid': merchentId.invalid && (merchentId.touched || merchentId.dirty)
+                }">
+                  @for (merchant of merchants; track merchant.id) {
+                    <option [ngValue]="merchant.id">{{merchant.userName}}</option>
+                  }
+                </select>
+              </div>
+                <div class="form-check form-switch col-md-4 mt-5  ">
+                  <label class="form-label">Shipping to Village?</label>
+                  <input  class="form-check-input h4 mx-2 cursor" type="checkbox" id="flexSwitchCheckChecked"  formControlName="isVillageDelivery" [value]="isvallage" (change)="slide()" >
+                </div>
+               @if (isvallage) {
+                  <div class="col-md-6">
+                      <label class="form-label">Village and street:</label>
+                      <input formControlName="villageStreetAddress" class="form-control " />
+                    </div>
+               }
+             
+
+                     <!-- /////////////////////////////////////// -->
+                     <h4 class="">Products</h4>
+                     <div formArrayName="products">
+                      <div
+                        *ngFor="let product of products.controls; let i = index"
+                        [formGroupName]="i"
+                        class="card mb-3 p-3 shadow-sm"
+                      >
+                        <div class="row g-3 align-items-center">
+                          <!-- Name -->
+                          <div class="col-md-4">
+                            <label class="form-label fw-semibold">Product Name</label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              formControlName="name"
+                              placeholder="Enter product name"
+                            />
+                          </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Quantity</label>
+          <input type="number" formControlName="quantity" class="form-control" placeholder="Enter quantity" />
+          @if (product.get('quantity')?.touched || product.get('quantity')?.dirty) {
+            @if (product.get('quantity')?.hasError('required')) {
+              <div class="form-text text-danger">Quantity is required</div>
+            }
+            @if (product.get('quantity')?.hasError('min')) {
+              <div class="form-text text-danger">Minimum one product</div>
+            }
+          }
+        </div>
+
+        <div class="col-md-3">
+          <label class="form-label fw-semibold">Weight (kg)</label>
+          <input type="number" formControlName="weight" class="form-control" placeholder="Enter weight" />
+          @if (product.get('weight')?.touched || product.get('weight')?.dirty) {
+            @if (product.get('weight')?.hasError('required')) {
+              <div class="form-text text-danger">Weight is required</div>
+            }
+            @if (product.get('weight')?.hasError('min')) {
+              <div class="form-text text-danger">Minimum 0.1 kg</div>
+            }
+          }
+        </div>
+
+        <div class="col-md-2 d-flex align-items-end">
+          <button type="button" class="btn btn-outline-danger w-100" (click)="removeProduct(i)">
+            <i class="fa fa-trash"></i> Delete
+          </button>
+        </div>
+      </div>
+    </div>
+  <!-- } -->
+</div>
+<div class="text-end">
+  <button type="button" class="btn  add" (click)="addProduct()">
+    <i class="fa fa-plus"></i> Add Product
+  </button>
+</div>
+
+      <!-- /////////////////Merchant Data////////////////////// -->
+       <div  class="card mb-1 p-3 shadow-sm">
+          <h5>Merchant Data</h5>
+         <div class="row g-3 align-items-center">
+              <div class="col-md-4">
+                    <label class="form-label fw-semibold">Phone Number</label>
+                    <input  formControlName="phonenumber" class="form-control" placeholder="Enter Phone Number" />
+               </div>
+              <div class="col-md-3">
+                     <label class="form-label fw-semibold">Address</label>
+                     <input type="text" formControlName="address" class="form-control" placeholder="Enter Address" />
+               </div>
+        </div>
+      </div>
+      <!-- /////////////////////////////////////// -->
+
+
+
+
+
+
+                     <!-- /////////////////////////////////////// -->
+              <div class="col-md-6">
+                <label class="form-label">Order Price</label>
+                <input type="number" class="form-control" placeholder="Order Price" formControlName="orderPrice" [ngClass]="{
+                    'is-valid': price.valid && (price.touched || price.dirty),
+                    'is-invalid': price.invalid && (price.touched || price.dirty)
+                  }"/>
+                @if (price.touched || price.dirty) {
+                    @if (price.hasError('required')) {
+                        <div  class="form-text text-danger">price is required </div>
+                    }
+                  }
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Total Wieght</label>
+                <input type="number" class="form-control" formControlName="totalWeight" readonly >
+              </div>
+          <button type="submit" class="submit-btn">Submit</button>
+          </div>
+        </form>
+      
+      </div>

@@ -1,4 +1,4 @@
-
+<!-- 
 
     <div class="container mt-5">
         <div >
@@ -27,56 +27,7 @@
                     <td>مدير</td>
                     <td>1</td>
                 </tr>
-                <tr>
-                    <td>
-                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-trash"></i></button>
-                        <button class="btn btn-info btn-sm"><i class="fa-solid fa-gear"></i></button>
-                    </td>
-                    <td>13:50:21 2020-12-08</td>
-                    <td>سيفز</td>
-                    <td>2</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-trash"></i></button>
-                        <button class="btn btn-info btn-sm"><i class="fa-solid fa-gear"></i></button>
-                    </td>
-                    <td>16:03:14 2020-12-15</td>
-                    <td>سوبر فايزر</td>
-                    <td>3</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-trash"></i></button>
-                        <button class="btn btn-info btn-sm"><i class="fa-solid fa-gear"></i></button>
-                    </td>
-                    <td>14:02:23 2021-05-10</td>
-                    <td>مدير فرع</td>
-                    <td>4</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-trash"></i></button>
-                        <button class="btn btn-info btn-sm"><i class="fa-solid fa-gear"></i></button>
-                    </td>
-                    <td>18:36:52 2022-06-04</td>
-                    <td>أمين مخزن</td>
-                    <td>5</td>
-                </tr>
-                <tr>
-                    <td>
-                        <button class="btn btn-success btn-sm"><i class="fa-solid fa-pen"></i></button>
-                        <button class="btn btn-danger btn-sm mx-1"><i class="fa-solid fa-trash"></i></button>
-                        <button class="btn btn-info btn-sm"><i class="fa-solid fa-gear"></i></button>
-                    </td>
-                    <td>14:46:48 2023-02-07</td>
-                    <td>حسابات</td>
-                    <td>6</td>
-                </tr>
+       
             </tbody>
         </table>
         <nav aria-label="Page navigation">
@@ -86,8 +37,46 @@
                 </li>
                 <li class="page-item active"><a class="page-link" href="#">1</a></li>
                 <li class="page-item">
-                    <a class="page-link" href="#"> --> </a>
+                    <a class="page-link" href="#"> --> 
+
+                    <!-- </a>
                 </li>
             </ul>
         </nav>
-    </div>
+    </div>  -->
+    <div class="container my-5 w-75 m-auto">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+          <h2 class="orders-title">Permissions</h2>
+          <button class="btn add-order-btn" >
+            <i class="fa fa-plus me-2"></i> Add Permission
+          </button>
+        </div>
+            
+        <table class="table table-hover align-middle mt-4  text-center">
+          <thead class="table-light">
+            <tr>
+              <th>#</th>
+              <th>Permission Name</th>
+              <th>Date Added</th>
+              <th>Settings</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (permission of permissions; track permission.id ) {
+            <tr>
+              <td> {{$index+1}}</td>
+              <td>{{permission.name}}</td>
+              <td>{{permission.createdDate}}</td>
+              <td>
+                <button class="btn btn-sm edit-btn mx-1" ><i class="fa fa-pen"></i></button>
+                <button class="btn btn-danger btn-sm mx-1 " ><i class="fa-solid fa-trash"></i></button>
+                <button class="btn btn-primary btn-sm mx-1 "><i class="fa-solid fa-gear"></i></button>
+              </td>
+            </tr>
+          }
+          </tbody>
+        </table>
+      
+        <!-- pagination -->
+      </div>
+      

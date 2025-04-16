@@ -1,0 +1,18 @@
+ <div class="container">
+  <h4 class=" p-3">Change Status </h4>
+
+    <div>
+        <label class="form-label mt-0">Status:</label>
+         <select class="form-select" [(ngModel)]="selectedStatus">
+          <option  disabled selected>Select The Status</option>
+            @for (status of searchStatus; track $index) {
+              <option [value]="status" >{{status}}</option>
+            }
+
+         </select>
+    </div>
+ 
+  <button class="btn  save m-3" (click)="updateStatus()">Save</button>
+  <button class="btn btn-outline-danger " type="button" (click)="closeModal()">Cancel</button>
+
+ </div>

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { MainService } from '../main/main.service';
@@ -17,9 +17,16 @@ export class AdminOrdersService {
   {
     return this._httpClient.get<IOrder[]>(`${this.baseurl}`)
   }
-  getSpecificOrders(searchWord:string):Observable<any>
-  {
-    return this._httpClient.get(`${this.baseurl}/${searchWord}`)
+  // getOrdersByStatus(searchWord:string):Observable<any>
+  // {
+  //   return this._httpClient.get(`${this.baseurl}/${searchWord}`)
+  // }
+  getOrdersByStatus(status: string, pageNumber: number, pageSize: number): Observable<any> {
+    const params = new HttpParams()
+      .set('pageNumber', pageNumber)
+      .set('pageSize', pageSize);
+  
+    return this._httpClient.get<any>(`${this.baseurl}/${status}`, { params });
   }
   editOrders(order:any):Observable<any>
   {
@@ -31,7 +38,13 @@ export class AdminOrdersService {
   }
 
   addOrder(order:any):Observable<any>{
-     return this._httpClient.post(`${this.baseurl}`,order)
+    const token = localStorage.getItem('token'); 
+
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+     return this._httpClient.post(`${this.baseurl}`,order,{ headers })
   }
 
   deleteOrder(orderId:number):Observable<any>{

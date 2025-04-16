@@ -1,23 +1,19 @@
 
-    <!-- <div class="container">
+<div class="container box">
+  <div class="row container minbox">
+    @for (item of titleKeyMap; let i = $index; track i) {
+      <div class="col-md-4 col-lg-3 mb-3">
+        <div class="card d-flex flex-row align-items-center gap-3">
+          <div class="icon-box">
+            <i [class]="icons[i] || 'fa-regular fa-circle-question'" class="icon"></i>
+          </div>
+          <div>
+            <div class="text">{{ item.title }}</div>
+            <div class="count ">{{ counts[item.key] }}</div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
 
-        <div class="card">
-            <div class="icon"></div>
-            <div class="text">تم التسليم</div>
-            <div class="count">109</div>
-        </div>
-       
-    </div> -->
-        <div class="container">
-            <div class="row">
-                @for (title of titles; track $index) {
-                    <div class="col-md-2">
-                        <div class="card">
-                            <div class="text">{{title}}</div>
-                            <div class="count">109</div>
-                        </div>
-                    </div>
-                }
-                
-            </div>
-        </div>

@@ -1,0 +1,24 @@
+<h4 class=" p-3">Additional shipping cost settings </h4>
+<form [formGroup]="form" (ngSubmit)="submitForm()" class="px-4">
+    <div>
+        <label class="form-label mt-0">defualtWeight:</label>
+        <input formControlName="defualtWeight" type="number" class="form-control"/>
+        @if (defualtWeight.touched) {
+          @if (defualtWeight.hasError('required')) {
+              <div  class="form-text text-danger">Required Data </div>
+          }
+        }
+    </div>
+    <div>
+        <label class="form-label mt-3">The price (Egp) of each additional kg </label>
+        <input formControlName="extraPricePerKilo" type="number" class="form-control " /> 
+        @if (extraPricePerKilo.touched) {
+          @if (extraPricePerKilo.hasError('required')) {
+              <div  class="form-text text-danger">Required Data </div>
+          }
+        }
+    </div>
+ 
+  <button class="btn  save m-3" type="submit">Save</button>
+  <button class="btn btn-outline-danger " type="button" (click)="closeModal()">Cancel</button>
+</form>

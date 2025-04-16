@@ -13,33 +13,49 @@ body {
 
 .card {
     background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     padding: 20px;
-    text-align: center;
-    transition: transform 0.2s, box-shadow 0.2s;
-    height: 9rem;
-    margin-block: .5rem;
-}
-
-.card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
-}
-
-.icon {
-    font-size: 40px;
-    color: #9a6bba;
-    margin-bottom: 10px;
-}
-
-.text {
-    font-size: 16px;
-    margin: 0;
-    font-weight: bold;
-}
-
-.count {
+    height: 100px;
+    display: flex;
+    align-items: center;
+    transition: all 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .icon-box {
+    background-color: #ffe8db;
+    border-radius: 12px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .icon {
     font-size: 24px;
+    color: #ff7744;
+  }
+  
+  .text {
+    font-size: 14px;
+    font-weight: 600;
     color: #333;
+  }
+  
+  .count {
+    font-size: 18px;
+    font-weight: 500;
+    color: #2e2e2e;
+    margin-top: 4px;
+  }
+.box{
+    height: 100vh; /* Full height of the screen */
+    display: flex;
+    justify-content: center;
+    align-items: center; 
 }

@@ -1,4 +1,4 @@
-body {
+/* body {
     font-family: 'Cairo', sans-serif;
 }
 .header {
@@ -9,4 +9,37 @@ body {
 }
 .table th, .table td {
     text-align: center;
-}
+} */
+
+.orders-title {
+    color: #083c5f;
+    font-weight: bold;
+  }
+  
+  .add-order-btn {
+    background-color: #f26522;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border: none;
+  }
+  
+  .nav-tabs .nav-link {
+    color: #083c5f;
+    font-weight: 500;
+  }
+  
+  .nav-tabs .nav-link.active {
+    border-bottom: 2px solid #f26522;
+    color: #f26522;
+  }
+  
+
+  .edit-btn {
+    background-color: #f26522;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+  

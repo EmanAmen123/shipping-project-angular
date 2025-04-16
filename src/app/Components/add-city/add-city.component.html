@@ -1,0 +1,73 @@
+<div class="orders-wrapper">
+    <h2 class="orders-title">Add City</h2>
+
+    <form [formGroup]="cityForm" (ngSubmit)="handleSubmit()">
+        <div class="row g-4">
+            <div class="col-md-6">
+                <label class="form-label" for="gvrn">Governrates</label>
+               <select id="gvrn" formControlName="govId" class="form-select" [ngClass]="{
+                'is-valid': govId.valid && (govId.touched || govId.dirty),
+                'is-invalid': govId.invalid && (govId.touched || govId.dirty)
+              }" >
+                @for (gvrn of governrates; track gvrn.id) {
+                <option [value]="gvrn.id">{{gvrn.name}}</option>
+                }
+               </select>
+               @if (govId.touched || govId.dirty) {
+                @if (govId.hasError('required')) {
+    
+                <div class="form-text text-danger">
+                        <p  class="m-0">Governrate is required </p>
+                </div>
+            }  
+            }
+            </div>
+
+            <div class="col-md-6">
+                <label class="form-label" for="name">City Name</label>
+                <input type="text" placeholder="name" id="name" formControlName="name" class="form-control" [ngClass]="{
+                    'is-valid': name.valid && (name.touched || name.dirty),
+                    'is-invalid': name.invalid && (name.touched || name.dirty)
+                  }"/>
+                   @if (name.touched || name.dirty) {
+                        @if (name.hasError('required')) {
+                            <div class="form-text text-danger">City Name is required </div>
+                        }
+                        @if (name.hasError('minLength')) {
+                            <div class="form-text text-danger">minimum 3 charachters</div>
+                        }
+                }
+            </div>
+            
+            <div class="col-md-6">
+                <label class="form-label" for="Standardshippingcost">Standard shipping cost</label>
+                <input type="number" id="Standardshippingcost" formControlName="shippingPrice" class="form-control" [ngClass]="{
+                    'is-valid': shippingPrice.valid && (shippingPrice.touched || shippingPrice.dirty),
+                    'is-invalid': shippingPrice.invalid && (shippingPrice.touched || shippingPrice.dirty)
+                  }"/>
+                   @if (shippingPrice.touched || shippingPrice.dirty) {
+                        @if (shippingPrice.hasError('required')) {
+                            <div class="form-text text-danger">Standard shipping cost is required </div>
+                        }
+                }
+            </div>
+             
+            <div class="col-md-6">
+                <label class="form-label" for="pickupcost">pickup shipping cost</label>
+                <input type="number"  id="pickupcost" formControlName="pickUpShippingPrice" class="form-control" [ngClass]="{
+                    'is-valid': pickUpShippingPrice.valid && (pickUpShippingPrice.touched || pickUpShippingPrice.dirty),
+                    'is-invalid': pickUpShippingPrice.invalid && (pickUpShippingPrice.touched || pickUpShippingPrice.dirty)
+                  }"/>
+                   @if (pickUpShippingPrice.touched || pickUpShippingPrice.dirty) {
+                        @if (pickUpShippingPrice.hasError('required')) {
+                            <div class="form-text text-danger">pickup shipping cost is required </div>
+                        }
+                }
+            </div>
+           <button type="submit" class="submit-btn">add</button>
+
+        </div>
+    </form>
+</div>
+<!-- //////////////////////////////////////////////////// -->
+

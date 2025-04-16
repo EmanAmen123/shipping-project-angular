@@ -1,11 +1,11 @@
 <aside class="sidebar" [ngClass]="{'active': isActive}">
     <div class="logo">
-       <!-- <i class="fa-regular fa-square-caret-right"></i>  -->
+       <img class="w-100" src="../../../../Screenshot 2025-04-12 160603.png"/>
     </div>
   
    <nav class="menu">
-      <h1 class="menu-header">Menu</h1>
-  
+      <h1 class="menu-header">Admin</h1>
+    
        <a [routerLink]="['/home']" routerLinkActive="nav-active" >   
       <div class="menu-item " data-tooltip="Home">
 
@@ -15,37 +15,54 @@
       </div>
        
        </a> 
-       <a [routerLink]="['/emo']" routerLinkActive="nav-active" >
-
-      <div class="menu-item" data-tooltip="Settings">
-        <i class="fa-solid fa-gear"></i>
-
-        <span>Settings</span>
-             
-      </div>
-    </a>
-
-      <div class="menu-item" data-tooltip="Users">
+       <div  class="nav-item dropdown" [ngClass]="{'nav-active':settingClicked}" >
+        <a class="nav-link dropdown-toggle menu-item " data-tooltip="Settings"  id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <i class="fa-solid fa-gear"></i>
+            <span>Settings <i class="fa-solid fa-caret-down"></i></span>
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+          <li><a class="dropdown-item p-2 " routerLinkActive="nav-active" (click)="settingActive()">weight Settings</a></li>
+          <li><a class="dropdown-item p-2" [routerLink]="['/branches']" routerLinkActive="nav-active">Another action</a></li>
+          <li><a class="dropdown-item p-2" [routerLink]="['/emo']" routerLinkActive="nav-active">Something else here</a></li>
+        </ul>
+       </div>
+       
+     <div  class="nav-item dropdown" [ngClass]="{'nav-active':settingClicked}" >
+      <a class="nav-link dropdown-toggle menu-item " data-tooltip="Users" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
         <i class="fa-solid fa-users"></i>
-        <span>Users</span>
-      </div>
-      <div class="menu-item" data-tooltip="Areas">
+        <span>Users <i class="fa-solid fa-caret-down"></i></span>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+        <li><a class="dropdown-item p-2 " routerLinkActive="nav-active" [routerLink]="['/employees']" >Employees</a></li>
+        <li><a class="dropdown-item p-2" [routerLink]="['']" routerLinkActive="nav-active">Merchants</a></li>
+        <li><a class="dropdown-item p-2" [routerLink]="['']" routerLinkActive="nav-active">Representatives</a></li>
+      </ul>
+     </div>
+
+     <div  class="nav-item dropdown" [ngClass]="{'nav-active':settingClicked}" >
+      <a class="nav-link dropdown-toggle menu-item " data-tooltip="Areas" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">                
         <i class="fa-solid fa-truck-fast"></i>
-        <span>Areas</span>
-      </div>
-      <a [routerLink]="['/orders']" routerLinkActive="nav-active">
+        <span>Areas <i class="fa-solid fa-caret-down"></i> </span>
+      </a>
+      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
+        <li><a class="dropdown-item p-2 " routerLinkActive="nav-active" [routerLink]="['/governrates']" >Governrates</a></li>
+        <li><a class="dropdown-item p-2" [routerLink]="['']" routerLinkActive="nav-active">Cities</a></li>
+      </ul>
+     </div>
+
+      <a [routerLink]="['/orders','All']" routerLinkActive="nav-active">
         <div class="menu-item" data-tooltip="Orders">
           <i class="fa-solid fa-bag-shopping"></i>
           <span>Orders</span>
         </div>
       </a>
-     
-      <div class="menu-item" data-tooltip="Cash">
-        <i class="fa-solid fa-money-check-dollar"></i>
-        <span>Cash</span>
+      <a [routerLink]="['/reports']" routerLinkActive="nav-active">
+      <div class="menu-item" data-tooltip="Reports">
+        <i class="fa-solid fa-file"></i>
+        <span>Reports</span>
       </div>
-  
-      <h1 class="menu-header shortcuts">Shortcuts</h1>
+      </a>
+      <!-- <h1 class="menu-header shortcuts">Shortcuts</h1>
       <div class="menu-item" data-tooltip="Add">
         <i class="bx bx-add-to-queue"></i>
         <span>Add</span>
@@ -53,12 +70,13 @@
       <div class="menu-item" data-tooltip="Remove">
         <i class="bx bx-message-square-minus"></i>
         <span>Remove</span>
-      </div>
+      </div> -->
     </nav>
   
-    <div class="logout" data-tooltip="Logout">
-      <i class="bx bx-log-out"></i>
-      <span>Logout</span>
+    <div class="logout" data-tooltip="Logout" (click)="logout()">
+      
+      <span  class="mx-2">Logout</span>
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
     </div>
   
     <div class="toggle-menu" (click)="toggleSidebar()"> 

@@ -33,5 +33,8 @@ export class GovernratesService {
   {
     return this._httpClient.get<ICity[]>(`https://localhost:7118/api/city/${gvrnId}`)
   }
+  addCity(city:ICity):Observable<any>{
+    return this._httpClient.post('https://localhost:7118/api/city',city)
 
+  }
 }

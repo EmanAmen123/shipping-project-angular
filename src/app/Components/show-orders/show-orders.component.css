@@ -1,0 +1,82 @@
+.orders-title {
+    color: #083c5f;
+    font-weight: bold;
+  }
+  
+  .add-order-btn {
+    background-color: #f26522;
+    color: white;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    border: none;
+  }
+  
+  .nav-tabs .nav-link {
+    color: #083c5f;
+    font-weight: 500;
+  }
+  
+  .nav-tabs .nav-link.active {
+    border-bottom: 2px solid #f26522;
+    color: #f26522;
+  }
+  
+
+  .edit-btn {
+    background-color: #f26522;
+    color: white;
+    border: none;
+    border-radius: 6px;
+  }
+  /* /////////////////////////////// */
+  .order-list {
+    padding: 1rem;
+    background-color: #f9f9f9;
+    margin-bottom: 1rem;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+    background: white;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+  }
+  
+  .pagination {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-top: 1rem;
+  }
+  
+  .pagination button {
+    padding: 0.5rem 1rem;
+    border: none;
+    background-color: #eee;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .pagination button.active {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .pagination button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  .print{
+    background-color: #6c757d;
+    color: white;
+  }
+  .assign{
+    background-color: #20c997;
+  }

@@ -1,0 +1,44 @@
+<aside class="sidebar" [ngClass]="{'active': isActive}">
+    <div class="logo">
+       <img class="w-100" src="../../../../Screenshot 2025-04-12 160603.png"/>
+    </div>
+  
+   <nav class="menu">
+      <h1 class="menu-header">Admin</h1>
+    
+       <a [routerLink]="['/home']" routerLinkActive="nav-active" >   
+      <div class="menu-item " data-tooltip="Home">
+
+        <i class="fa-solid fa-house"></i>
+
+        <span>Home</span>
+      </div>
+       
+       </a> 
+
+      <a [routerLink]="['/orders']" routerLinkActive="nav-active">
+        <div class="menu-item" data-tooltip="Orders">
+          <i class="fa-solid fa-bag-shopping"></i>
+          <span>Orders</span>
+        </div>
+      </a>
+      <a [routerLink]="['/reports']" routerLinkActive="nav-active">
+      <div class="menu-item" data-tooltip="Reports">
+        <i class="fa-solid fa-file"></i>
+        <span>Reports</span>
+      </div>
+      </a>
+     
+    </nav>
+  
+    <div class="logout" data-tooltip="Logout" (click)="logout()">
+      
+      <span  class="mx-2">Logout</span>
+      <i class="fa-solid fa-arrow-right-from-bracket"></i>
+    </div>
+  
+    <div class="toggle-menu" (click)="toggleSidebar()"> 
+     
+       <i class="fa-solid fa-bars"></i> 
+    </div>
+  </aside>

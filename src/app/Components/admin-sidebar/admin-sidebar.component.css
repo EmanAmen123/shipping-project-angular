@@ -1,102 +1,4 @@
-/* @import url("https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap");
 
-* {
-  margin: 0;
-  padding: 0;
-  font-family: "Agdasima", sans-serif;
-}
-
-:root {
-  --sidebar-bg: #2f323a;
-  --sidebar-width: 50px;
-  --sidebar-width-active: 150px;
-  --text-color: #fff;
-  --menu-item-color: rgb(188, 186, 186);
-  --menu-item-hover-bg: rgb(117, 109, 109);
-  --menu-item-hover-color: #fff;
-  --menu-header-color: rgb(137, 135, 135);
-  --tooltip-bg: rgba(0, 0, 0, 0.8);
-  --border-color: rgb(218, 147, 147);
-}
-
-.sidebar {
-  position: sticky;
-  top: 0;
-  left: 0;
-  /* height: 100vh; */
-  /* width: 50px;
-  color: #fff;
-  padding: 0 20px;
-  background-color:#2f323a ;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  transition: all 0.5s ease;
-}
-
-.logo,
-.menu-item,
-.logout {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: justify-content 0.5s ease;
-}
-
-.menu {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  justify-content: center;
-}
-
-.menu-item {
-  cursor: pointer;
-  padding: 10px 20px;
-  border-radius: 3px;
-  color:rgb(188, 186, 186);
-  transition: all 0 .5s ease;
-}
-
-.menu-item:hover,
-.nav-active,
-.logout:hover {
-  background:rgb(117, 109, 109);
-  color: #fff;
-  transition: 0.5s ease;
-}
-
-.sidebar.active {
-  width:150px;
-}
-
-.sidebar.active .logo,
-.sidebar.active .menu-item,
-.sidebar.active .logout {
-  justify-content: flex-start;
-}
-
-.sidebar.active .menu-item span,
-.sidebar.active .logout span {
-  display: block;
-}
-
-.toggle-menu {
-  position: absolute;
-  top: 10px;
-  right: -20px;
-  background-color: #2f323a;
-  border: 1px solid rgb(117, 109, 109);
-  color: #fff;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-} */ 
 
 @import url("https://fonts.googleapis.com/css2?family=Agdasima:wght@400;700&display=swap");
 
@@ -108,13 +10,13 @@
 
 /* Color Variables */
 :root {
-  --sidebar-bg: #2f323a;
+  --sidebar-bg: #024669;
   --sidebar-width: 100px;
   --sidebar-width-active: 150px;
-  --text-color: #fff;
+  --text-color: #ffff;
   --menu-item-color: rgb(188, 186, 186);
-  --menu-item-hover-bg: rgb(117, 109, 109);
-  --menu-item-hover-color: #fff;
+  --menu-item-hover-bg: #124f6f;
+  --menu-item-hover-color: #ffff;
   --menu-header-color: rgb(137, 135, 135);
   --tooltip-bg: rgba(0, 0, 0, 0.8);
   --border-color: rgb(218, 147, 147);
@@ -125,9 +27,9 @@
   left: 0;
   height: 100vh;
   width: 100px;
-  color: #fff;
+  color: #ffff;
   padding: 0 20px;
-  background-color: #2f323a;
+  background-color: #024669;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -172,29 +74,33 @@
 }
 
 .menu-header {
-  color: rgb(137, 135, 135);
+  color: white;
   text-transform: uppercase;
   text-align: center;
   font-size: 16px;
   transition: 0.5s ease;
+  padding: 0 20px;
 }
 
 .menu-item {
   cursor: pointer;
   padding: 10px 20px;
   border-radius: 3px;
-  color: rgb(188, 186, 186);
+  color: white;
   transition: all 0.5 ease;
 }
 
 .menu-item:hover,
 .nav-active,
 .logout:hover {
-  background: rgb(117, 109, 109);
-  color: #fff;
+  background: #124f6f;
+  color: #ffff;
   transition: 0.5s ease;
 }
+.dropdown-item:clich{
+  background: #124f6f !important;
 
+}
 .menu-item i,
 .logout i {
   font-size: 20px;
@@ -236,9 +142,9 @@
   position: absolute;
   top: 10px;
   right: -20px;
-  background-color: #2f323a;
-  border: 1px solid rgb(117, 109, 109);
-  color: #fff;
+  background-color: #024669;
+  border: 1px solid #124f6f;
+  color: #ffff;
   padding: 10px 15px;
   border-radius: 5px;
   cursor: pointer;
@@ -257,7 +163,7 @@
   left: 120%;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: #124f6f;
   padding: 5px 10px;
   border-radius: 5px;
   font-size: 20px;
