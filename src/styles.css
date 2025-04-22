@@ -64,3 +64,9 @@ a{
   }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.loading{
+  width: 4rem;
+  height: 4rem;
+  color: #083c5f;
+  border-width: .5rem;
+}

@@ -31,7 +31,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
    spacificOrder!:any
    governrates!:IGovernrate[]
    selectedGovernrateId: number | null = null;
-   selectedCityeId: number | null = null;
+   selectedCityeId!: number
    selectedpaymentId: number | null = null;
    selectedmerchanteId: number | null = null;
     edit:boolean=false
@@ -42,6 +42,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
    oldcity:any=""
    oldbranch:any=""
    merchants!:any
+   get!:ICity[]
   constructor(private _AdminOrdersService:AdminOrdersService,private snackBar: MatSnackBar,private _AdminService:AdminService, private _GovernratesService:GovernratesService,private _ShippingService:ShippingService,private _FormBuilder: FormBuilder,private _ActivatedRoute:ActivatedRoute,private _Router:Router,private _AdminBranchesService:AdminBranchesService) {
     this.orderForm = this._FormBuilder.group({
       customerName: ['', [Validators.required,Validators.minLength(3)]],
@@ -62,6 +63,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       paymentType: ['',Validators.required],
       shippingMethod: ['',Validators.required],
       products: this._FormBuilder.array([]),
+
     });
 
     // Add one product by default
@@ -100,11 +102,10 @@ export class AddOrderComponent implements OnInit, OnDestroy {
         next: response => {
           console.log('Order submitted!', response)
           this.loading=false
-          
           if(response.statusCode==200){
             this.showMessage()
             setTimeout(() => {
-               this._Router.navigate(['/orders','New'])
+               this._Router.navigate(['/Admin/orders','New'])
             }, 1000);
              
           }
@@ -170,14 +171,22 @@ export class AddOrderComponent implements OnInit, OnDestroy {
       },error:(err)=>{console.log(err)}
     })
   }
+  getallCities() {
+     this._GovernratesService.getAllCities().pipe(takeUntil(this.destroy$)).subscribe({
+       next:(data)=>{
+         this.cities = data;
+       },
+       error:(err)=>{
+         console.log(err)
+       }
+     })  
+   }
   ngOnInit(): void {
+    this.getallCities()
     /////////////// Edit Order///////////////////////////////
     this._ActivatedRoute.paramMap.pipe(takeUntil(this.destroy$)).subscribe({
       next:(params)=>{
         this.orderId=params.get('orderId')
-        // this.customerName.setValue('')
-        // this.customerEmail.setValue('')
-        // this.customerPhone.setValue('')
       }
      })
      if(this.orderId!=0){
@@ -188,7 +197,6 @@ export class AddOrderComponent implements OnInit, OnDestroy {
           this.customerName.setValue(res.customerName)
           this.customerEmail.setValue(res.customerEmail)
           this.customerPhone.setValue(res.customerPhone)
-          this.cityId.setValue(res.cityId)
           this.isvallage=res.isVillageDelivery
           this.isVillageDelivery.setValue(res.isVillageDelivery)
           this.villageStreetAddress.setValue(res.villageStreetAddress)
@@ -201,10 +209,9 @@ export class AddOrderComponent implements OnInit, OnDestroy {
           this.merchantAddress.setValue(res.address)
           this.price.setValue(res.orderPrice)
           this.branchId.setValue(res.branchId)
-          this.selectedCityeId=res.cityId
            this.merchentId.setValue(res.merchentId)
-          // this.oldgvrn=this.governrates.find((g)=>g.id==this.governorateId.value)?.name
-          // console.log(this.oldgvrn)
+          this.selectedCityeId=res.cityId
+         
           this.products.clear();
           res.products.forEach((product: any) => {
             this.products.push(this._FormBuilder.group({
@@ -278,20 +285,10 @@ export class AddOrderComponent implements OnInit, OnDestroy {
    /////////////// Cities options///////////////////////////////
    onGovernrateChange() {
    console.log('gov id',this.selectedGovernrateId)
-    // const selectElement = event.target as HTMLSelectElement;
-    // const selectedGovernrateId = Number(selectElement.value)
-    this._GovernratesService.getAllCities().pipe(takeUntil(this.destroy$)).subscribe({
-      next:(data)=>{
-        this.cities = data;
+   
        this.gvrnCities= this.cities.filter((city)=>{
           return city.govId==this.selectedGovernrateId
         })
-      },
-      error:(err)=>{
-        console.log(err)
-      }
-    })
-     
   }
 
   calculateTotals() {
@@ -321,9 +318,7 @@ export class AddOrderComponent implements OnInit, OnDestroy {
   get customerEmail(){
     return this.orderForm.controls['customerEmail']
    }
-  get cityId(){
-    return this.orderForm.controls['cityId']
-   }
+ 
   get governorateId(){
     return this.orderForm.controls['governorateId']
    }
@@ -362,6 +357,9 @@ export class AddOrderComponent implements OnInit, OnDestroy {
    }
    get merchentId(){
      return this.orderForm.controls['merchentId']
+   }
+   get cityId(){
+     return this.orderForm.controls['cityId']
    }
 
    showMessage() {

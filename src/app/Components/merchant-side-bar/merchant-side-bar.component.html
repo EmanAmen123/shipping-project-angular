@@ -6,7 +6,7 @@
    <nav class="menu">
       <h1 class="menu-header">Merchant</h1>
     
-       <a [routerLink]="['/home']" routerLinkActive="nav-active" >   
+       <a [routerLink]="['/Merchant/home']" routerLinkActive="nav-active" >   
       <div class="menu-item " data-tooltip="Home">
 
         <i class="fa-solid fa-house"></i>
@@ -16,13 +16,13 @@
        
        </a> 
 
-      <a [routerLink]="['/orders']" routerLinkActive="nav-active">
+      <a [routerLink]="['/Merchant/orders','All']" routerLinkActive="nav-active">
         <div class="menu-item" data-tooltip="Orders">
           <i class="fa-solid fa-bag-shopping"></i>
           <span>Orders</span>
         </div>
       </a>
-      <a [routerLink]="['/reports']" routerLinkActive="nav-active">
+      <a [routerLink]="['/Merchant/reports']" routerLinkActive="nav-active">
       <div class="menu-item" data-tooltip="Reports">
         <i class="fa-solid fa-file"></i>
         <span>Reports</span>

@@ -1,5 +1,22 @@
-<div class="container my-5 ps-4">
+@if (loading) {
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <div class="spinner-border loading" role="status" >
+        <!-- <span class="visually-hidden">Loading...</span> -->
+      </div>
+    </div>
    
+  </div>
+}
+@if (!loading) {
+<div class="container my-5 ps-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="orders-title">Orders</h2>
+      <button class="btn add-order-btn" [routerLink]="[`/${role}/addorder`,0]">
+        <i class="fa fa-plus me-2"></i> Add Order
+      </button>
+    </div>
+       
     <select class="form-select w-auto d-inline-block" (change)="onPageSizeChange($event)">
       <option disabled selected>Page Size</option>
       <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
@@ -15,7 +32,7 @@
           <th>Governrate</th>
           <th>City</th>
           <th>Order Price</th>
-           <th>Status</th>
+          <th><i class="fa-solid fa-print"></i></th>
         </tr>
       </thead>
       <tbody>
@@ -28,15 +45,8 @@
           <td>{{ order.governorate }}</td>
           <td>{{ order.city }}</td>
           <td>{{ order.orderPrice }}</td>
-         
-          
-          <td>
-            <button class="btn btn-info btn-sm" (click)="settingActive(order.id)">Status</button> 
-           </td>
-         
-         
-          
-       
+          <td><i class="fa-solid fa-print"></i></td>
+           
         </tr>
       }
       </tbody>
@@ -62,4 +72,4 @@
     </nav>
     <!-- pagination -->
   </div>
-  
+}

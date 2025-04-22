@@ -4,7 +4,6 @@ import { MainService } from '../main/main.service';
 import { Observable } from 'rxjs';
 import {jwtDecode} from 'jwt-decode';
 import { Router } from '@angular/router';
-import { routes } from '../../../app.routes';
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +12,8 @@ export class LoginService {
    baseUrl:string
    userToken!:string|null
    userData:any=null
+   role!:string
+   name!:string
   constructor(private _HttpClient:HttpClient,private _MainService:MainService,private _Router:Router) { 
     this.baseUrl=_MainService.baseUrl
   }
@@ -25,8 +26,11 @@ export class LoginService {
     this.userToken=localStorage.getItem('token')
     if(this.userToken!==null){
      this.userData= jwtDecode(this.userToken)
+     this.role=this.userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
+     this.name=this.userData["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname"]
+     console.log('role',this.role)
      console.log('user data',this.userData)
-     return this.userData
+     return this.userData["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]
     }else{
       console.log('no token')
     }

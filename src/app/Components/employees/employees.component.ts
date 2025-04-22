@@ -26,6 +26,11 @@ export class EmployeesComponent implements OnInit,OnDestroy {
     })
   }
   
+  deleteemployee(id: number): void {
+    const deleteSub = this._AdminService.deleteEmployee(id).subscribe(() => {
+      this.employees = this.employees.filter((employee) => employee.id !==id );
+    });
+  }
   
   ngOnDestroy(): void {
       this.destroy$.next();

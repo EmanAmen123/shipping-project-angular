@@ -1,4 +1,4 @@
-<div class="orders-wrapper">
+<div class="orders-wrapper container mt-5 ps-4">
   @if (!edit) {
     <h2 class="orders-title">Add Order</h2>
    
@@ -168,7 +168,6 @@
               }
             }
           </div>
-        
             <div class="form-check form-switch col-md-4 mt-5  ">
               <label class="form-label">Shipping to Village?</label>
               <input  class="form-check-input h4 mx-2 cursor" type="checkbox" id="flexSwitchCheckChecked"  formControlName="isVillageDelivery" [value]="isvallage" (change)="slide()" >
@@ -179,7 +178,6 @@
                   <input formControlName="villageStreetAddress" class="form-control " />
                 </div>
            }
-         
 
                  <!-- /////////////////////////////////////// -->
                  <h4 class="">Products</h4>
@@ -250,7 +248,7 @@
 </button>
 </div>
 
-  <!-- /////////////////Merchant Data////////////////////// --> merchantphonenumber
+  <!-- /////////////////Merchant Data////////////////////// --> 
    <div  class="card mb-1 p-3 shadow-sm">
       <h5>Merchant Data</h5>
      <div class="row g-3 align-items-center">

@@ -33,6 +33,9 @@ export class AdminService {
   getEmployeeById(id:number):Observable<any>{
     return this._HttpClient.get(`${this.baseurl}/api/Employee/${id}`)
   }
+  deleteEmployee(id:number):Observable<any>{
+    return this._HttpClient.delete(`${this.baseurl}/api/Employee/${id}`)
+  }
 
   getAllRepports():Observable<any>{
     return this._HttpClient.get(`${this.baseurl}/api/OrderReport`)

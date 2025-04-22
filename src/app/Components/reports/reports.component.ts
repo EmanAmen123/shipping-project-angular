@@ -6,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { Ireport } from '../../core/interfaces/igeneral';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { LoginService } from '../../core/services/login/login.service';
 
 @Component({
   selector: 'app-reports',
@@ -14,54 +15,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './reports.component.css'
 })
 export class ReportsComponent implements OnInit,OnDestroy {
-//   Subscription:Subscription[]=[]
-//   searchWords : string[]=[ 'New' ,'Pending','Delivered','PartiallyDelivered','CanceledByRecipient','Rejected','PaymentPending',
-//    'CannotBeReached','Processing','Shipped','AwaitingConfirmation']
-//    reports:Ireport[]| null=[]
-//    startDate!:Date
-//    endDate!:Date
-  
-//   constructor(private _AdminService:AdminService,private _ActivatedRoute:ActivatedRoute){}
-   
 
-//   ngOnInit(): void {
-  
-//   }
-//   getRebortByStatus(status: any) {
-//     console.log('status',status.value)
-//   const getReport=  this._AdminService.getRepportsByStatus(status.value).subscribe({
-//      next: (res) => {
-//        if (res.message !== 'No reports found with the given status.') {
-//          this.reports = res;
-//          console.log('reports',this.reports)
-//        } else {
-//          this.reports = null;
-//        }
-//      },
-//      error: (err) => {
-//        console.error('error',err);
-//      },
-//    });
-//    this.Subscription.push(getReport)
-//  }
-
- 
-
-// getData() {
-//   if (!this.startDate || !this.endDate) {
-//     console.warn('Dates are required.');
-//     return;
-
-//   }
-//   this._AdminService.getRepportsByDate(this.startDate,this.endDate).subscribe({
-//     next:res=> this.reports=res,
-//     error:err=>console.log(err)
-//   })}
-//  ngOnDestroy(): void {
-//    this.Subscription.forEach(sub=>sub.unsubscribe())
-//  }
-
-
+  firstLoading:boolean=false
+  loading:boolean=false
   Subscription: Subscription[] = [];
   searchWords: string[] = [
     'New', 'Pending', 'Delivered', 'PartiallyDelivered', 'CanceledByRecipient', 'Rejected', 'PaymentPending',
@@ -77,17 +33,31 @@ export class ReportsComponent implements OnInit,OnDestroy {
   totalRecords: number = 0;
   totalPages: number = 0;
   pageSizes: number[] = [];
-
+  userName!:string
+  role!:string
   currentStatus: string = ''; // Track selected status
 
-  constructor(private _AdminService: AdminService, private _ActivatedRoute: ActivatedRoute) {}
+  constructor(private _AdminService: AdminService, private _ActivatedRoute: ActivatedRoute,private _login:LoginService) {}
 
   ngOnInit(): void {
+    this.firstLoading=true
+    this.userName= this._login.name
+    this.role=this._login.role
     const sub = this._AdminService.getAllRepportsPaginated(this.currentPage, this.pageSize).subscribe({
+      
       next: res => {
+
         if (res.message !== 'No reports found.') {
           console.log('res',res)
+          if(this.role==="Merchant"){
+            this.reports=res.filter((res:any)=>res.merchantName==this.userName)
+           this.firstLoading=false
+
+          }else{
           this.reports = res;
+         this.firstLoading=false
+            
+          }
           this.totalRecords = res.totalRecords;
           this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
           console.log(this.reports)
@@ -113,10 +83,14 @@ export class ReportsComponent implements OnInit,OnDestroy {
   }
 
   fetchPaginatedReports() {
+    this.loading=true
+
     const sub = this._AdminService.getRepportsByStatusPaginated(this.currentStatus, this.currentPage, this.pageSize).subscribe({
       next: res => {
         if (res.message !== 'No reports found with the given status.') {
           this.reports = res.orders;
+          this.loading=false
+
           console.log(res)
           this.totalRecords = res.totalRecords;
           this.totalPages = Math.ceil(this.totalRecords / this.pageSize);
@@ -148,13 +122,19 @@ export class ReportsComponent implements OnInit,OnDestroy {
   }
 
   getData() {
+    this.loading=true
+
     if (!this.startDate || !this.endDate) {
       console.warn('Dates are required.');
       return;
     }
 
     const sub = this._AdminService.getRepportsByDate(this.startDate, this.endDate).subscribe({
-      next: res => this.reports = res,
+      next: res =>{
+         this.reports = res
+         this.loading=false
+
+      },
       error: err => console.log(err),
     });
 

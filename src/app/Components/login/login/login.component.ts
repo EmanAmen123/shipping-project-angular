@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
     
   private destroy$ = new Subject<void>();
-
+    role!:string
     
   private readonly _FormBuilder=inject(FormBuilder)
   private readonly _LoginService=inject(LoginService)
@@ -37,9 +37,10 @@ export class LoginComponent {
                   localStorage.setItem('token',res.data.token)
                   // decode token
                  this._LoginService.saveUserData()
-
+                     this.role=this._LoginService.role 
+                          console.log('user role',this.role)
                   // navigate
-                  this._Router.navigate(['/home'])
+                  this._Router.navigate([`${this.role}/home`])
               }
           },
           error:(err)=>{

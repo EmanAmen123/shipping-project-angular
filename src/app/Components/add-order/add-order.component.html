@@ -104,10 +104,16 @@
                     'is-invalid': cityId.invalid && (cityId.touched || cityId.dirty)
                   }">
                     <option  selected disabled> Select City</option>
-                    @for (city of gvrnCities; track city.id) {
-                    <option [ngValue]="city.id">{{city.name}}</option>
-                     
+                    @if (edit) {
+                      @for (city of cities; track city.id) {
+                        <option [ngValue]="city.id">{{city.name}}</option>
+                        }
+                    }@else {
+                      @for (city of gvrnCities; track city.id) {
+                        <option [ngValue]="city.id">{{city.name}}</option>
+                        }
                     }
+                   
                 </select>
                 @if (cityId.touched) {
                     @if (cityId.hasError('required')) {
@@ -266,7 +272,7 @@
   </button>
 </div>
 
-      <!-- /////////////////Merchant Data////////////////////// --> merchantphonenumber
+      <!-- /////////////////Merchant Data////////////////////// --> 
        <div  class="card mb-1 p-3 shadow-sm">
           <h5>Merchant Data</h5>
          <div class="row g-3 align-items-center">

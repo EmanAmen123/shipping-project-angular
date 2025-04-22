@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AdminBranchesService } from '../../core/services/branches/admin-branches.service';
 import { Ibranch } from '../../core/interfaces/igeneral';
 import { Subscription } from 'rxjs';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-branches',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './branches.component.html',
   styleUrl: './branches.component.css'
 })

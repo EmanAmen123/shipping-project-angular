@@ -22,6 +22,7 @@ export class DeliveryOrdersComponent implements OnInit,OnDestroy{
   empityOrder!: { data: [], message: string };
   hasPendingOrders: boolean = false;
   selectedorderid!:number
+  loading:boolean=false
   // Pagination
   currentPage: number = 1;
   pageSize: number = 10;
@@ -43,6 +44,7 @@ export class DeliveryOrdersComponent implements OnInit,OnDestroy{
   }
 
   getOrdersByStatus(): void {
+    this.loading=true
     const ordersSubscription = this._AdminOrdersService.getOrdersByStatus(
       this.currentStatus,
       this.currentPage,
@@ -51,6 +53,7 @@ export class DeliveryOrdersComponent implements OnInit,OnDestroy{
       next: (res) => {
         if (res.message !== 'No orders found with the given status.') {
           this.orders = res.orders;
+          this.loading=false
           console.log('orders',res.orders)
           this.totalRecords = res.totalRecords;
           this.totalPages = Math.ceil(this.totalRecords / this.pageSize);

@@ -6,7 +6,7 @@
    <nav class="menu">
       <h1 class="menu-header">Admin</h1>
     
-       <a [routerLink]="['/home']" routerLinkActive="nav-active" >   
+       <a [routerLink]="['home']" routerLinkActive="nav-active" >   
       <div class="menu-item " data-tooltip="Home">
 
         <i class="fa-solid fa-house"></i>
@@ -21,13 +21,13 @@
             <span>Settings <i class="fa-solid fa-caret-down"></i></span>
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" >
-          <li><a class="dropdown-item p-2 " routerLinkActive="nav-active" (click)="settingActive()">weight Settings</a></li>
-          <li><a class="dropdown-item p-2" [routerLink]="['/branches']" routerLinkActive="nav-active">Branches</a></li>
+          <li><a class="dropdown-item p-2 weight" routerLinkActive="nav-active" routerLinkActive="nav-active" (click)="settingActive()">weight Settings</a></li>
+          <li><a class="dropdown-item p-2" [routerLink]="['branches']" routerLinkActive="nav-active">Branches</a></li>
         </ul>
        </div>
        
      
-     <a [routerLink]="['/employees']" routerLinkActive="nav-active">
+     <a [routerLink]="['employees']" routerLinkActive="nav-active">
       <div class="menu-item" data-tooltip="Employees">
         <i class="fa-solid fa-users"></i>
         <span>Employees</span>
@@ -35,19 +35,19 @@
       </a>
 
     
-     <a [routerLink]="['/governrates']" routerLinkActive="nav-active">
+     <a [routerLink]="['governrates']" routerLinkActive="nav-active">
       <div class="menu-item" data-tooltip="Governrates">
         <i class="fa-solid fa-truck-fast"></i>
         <span>Governrates</span>
       </div>
       </a>
-      <a [routerLink]="['/orders','All']" routerLinkActive="nav-active">
+      <a [routerLink]="['orders','All']" routerLinkActive="nav-active">
         <div class="menu-item" data-tooltip="Orders">
           <i class="fa-solid fa-bag-shopping"></i>
           <span>Orders</span>
         </div>
       </a>
-      <a [routerLink]="['/reports']" routerLinkActive="nav-active">
+      <a [routerLink]="['reports']" routerLinkActive="nav-active">
       <div class="menu-item" data-tooltip="Reports">
         <i class="fa-solid fa-file"></i>
         <span>Reports</span>

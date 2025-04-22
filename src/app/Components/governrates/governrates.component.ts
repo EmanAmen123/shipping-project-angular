@@ -4,11 +4,12 @@ import { Subject, takeUntil } from 'rxjs';
 import { IGovernrate } from '../../core/interfaces/igeneral';
 import { EditGovrnModalComponent } from '../edit-govrn-modal/edit-govrn-modal.component';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterLink } from '@angular/router';
 
 
 @Component({
   selector: 'app-governrates',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './governrates.component.html',
   styleUrl: './governrates.component.css'
 })

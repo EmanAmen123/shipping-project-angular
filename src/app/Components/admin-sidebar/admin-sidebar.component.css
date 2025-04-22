@@ -195,3 +195,6 @@
 .logout[data-tooltip]::after {
   left: 100%;
 }
+.weight{
+  cursor: pointer;
+}

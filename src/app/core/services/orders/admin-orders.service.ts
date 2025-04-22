@@ -28,17 +28,17 @@ export class AdminOrdersService {
   
     return this._httpClient.get<any>(`${this.baseurl}/${status}`, { params });
   }
-  editOrders(order:any,id:number):Observable<any>
-  {
+  editOrders(order: any, id: number): Observable<any> {
     const token = localStorage.getItem('token'); 
-
+  
     const headers = new HttpHeaders({
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`
     });
-    return this._httpClient.put(`${this.baseurl}/${id}`,order,{headers})
+  
+    return this._httpClient.put(`${this.baseurl}/${id}`, order, { headers });
   }
-
+  
   getOrderById(orderId:string):Observable<IOrderById>{
     return this._httpClient.get<IOrderById>(`${this.baseurl}/${orderId}`)
   }

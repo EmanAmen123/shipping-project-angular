@@ -1,8 +1,19 @@
 
+@if (loading) {
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <div class="spinner-border loading" role="status" >
+        <!-- <span class="visually-hidden">Loading...</span> -->
+      </div>
+    </div>
+   
+  </div>
+}
+@if (!loading) {
 <div class="container my-5 ps-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2 class="orders-title">Orders</h2>
-    <button class="btn add-order-btn" [routerLink]="['/addOrder',0]">
+    <button class="btn add-order-btn" [routerLink]="[`/${role}/addOrder`,0]">
       <i class="fa fa-plus me-2"></i> Add Order
     </button>
   </div>
@@ -48,7 +59,7 @@
         <td>{{ order.city }}</td>
         <td>{{ order.orderPrice }}</td>
         <td>
-          <button class="btn btn-sm edit-btn"   [routerLink]="['/addOrder',order.id]"><i class="fa fa-pen"></i></button>
+          <button class="btn btn-sm edit-btn"   [routerLink]="[`/${role}/addOrder`,order.id]"><i class="fa fa-pen"></i></button>
         </td>
         <!-- <td>
           <button class="btn btn-sm edit-btn">
@@ -97,3 +108,4 @@
   </nav>
   <!-- pagination -->
 </div>
+}

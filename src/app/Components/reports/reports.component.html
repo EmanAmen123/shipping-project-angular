@@ -1,8 +1,18 @@
 
-
-<div class="container my-5">
+@if (firstLoading) {
+  <div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+      <div class="spinner-border loading" role="status" >
+        <!-- <span class="visually-hidden">Loading...</span> -->
+      </div>
+    </div>
+   
+  </div>
+}
+@if (!firstLoading) {
+<div class="container my-5 ps-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
-      <h2 class="orders-title">Order Reports</h2>
+      <h2 class="orders-title">Orders Report</h2>
       
     </div>
     <div class="row box ">
@@ -14,7 +24,6 @@
           }
       </select>
        </div>
-      
 
     <div class="col-md-6 row">
           <form (ngSubmit)="getData()" #dateForm="ngForm">
@@ -39,8 +48,13 @@
       <option disabled selected>Select Page Size</option>
       <option *ngFor="let size of pageSizes" [value]="size">{{size}}</option>
     </select>
-    
-  
+    @if (loading) {
+        <div class="text-center mt-5">
+          <div class="spinner-border loading" role="status" >
+          </div>
+        </div>
+    }
+    @if (!loading) {
     <table class="table table-hover align-middle mt-4 w-100 text-center">
       <thead class="table-light">
         <tr>
@@ -61,6 +75,7 @@
       </thead>
       <tbody>
        @if (reports) {
+        
         @for (report of reports; track $index) {
           <tr>
             <td> {{$index+1}}</td>
@@ -87,7 +102,7 @@
     
       </tbody>
     </table>
-       
+  }  
     <!-- pagination -->
     <nav *ngIf="totalPages > 1" class="mt-4">
       <ul class="pagination justify-content-center">
@@ -103,3 +118,4 @@
       </ul>
     </nav>
   </div>
+}

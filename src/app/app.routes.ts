@@ -22,104 +22,66 @@ import { DeliveryLayoutComponent } from './LayOuts/delivery-layout/delivery-layo
 import { roleGuard } from './core/guards/role.guard';
 import { RolesService } from './core/services/permissions&employees/roles.service';
 import { DeliveryOrdersComponent } from './Components/delivery-orders/delivery-orders.component';
+import { MerchantordersComponent } from './Components/merchantorders/merchantorders.component';
 
 export const routes: Routes = [
-    // {path:'',component:AdminLayoutComponent,children:[  
-    //     {path:'',redirectTo:'home',pathMatch:'full'}  ,
-    //     {path:'home',component:AdminHomeComponent},
-    //     {path:'employees',component:EmployeesComponent,title:'employees'},
-    //     {path:'orders',component:ShowOrdersComponent, title:'orders',canActivate:[authGuardGuard]},
-    //     {path:'orders/:status',component:ShowOrdersComponent, title:'orders',canActivate:[authGuardGuard]},
-    //     {path:'addOrder/:orderId',component:AddOrderComponent,title:'add order',canActivate:[authGuardGuard]},
-    //     {path:'branches',component:BranchesComponent,title:'branches',canActivate:[authGuardGuard]},
-    //     {path:'addDelivery',component:AddingRepresentativeComponent},
-    //     {path:'delivery',component:AllDeliveryrepresentativesComponent},
-    //     {path:'governrates',component:GovernratesComponent},
-    //     {path:'addCity',component:AddCityComponent},
-    //     {path:'permissions',component:Permissions},
-    //     {path:'addEmployee/:id',component:AddEmployeeComponent},
-    //     {path:'reports',component:ReportsComponent},
-    //     {path:'weightSettings',component:WeightsettingsModalComponent},
-    //     {path:'addmerch',component:AddMerchantComponent}
-    // ]},
-    // {path:'',component:MerchantLayoutComponent,children:[
-    //     {path:'',redirectTo:'home',pathMatch:'full'}  ,
-    //     {path:'home',component:AdminHomeComponent},
-    //     {path:'addorder/:orderId',component:MerchantOrderComponent},
-    //     {path:'reports',component:ReportsComponent}
-    // ]},
-    // {path:'',component:DeliveryLayoutComponent},
-    // // {path:'**',component:NotFoundComponent},
-
-    // {path:'',redirectTo:'home',pathMatch:'full',title:"home"},
-    // {path:'home',component:AdminHomeComponent,title:'home',canActivate:[authGuardGuard]},
-    // {path:'employees',component:EmployeesComponent,title:'employees'},
-    // {path:'orders',component:ShowOrdersComponent, title:'orders',canActivate:[authGuardGuard]},
-    // {path:'orders/:status',component:ShowOrdersComponent, title:'orders',canActivate:[authGuardGuard]},
-    // {path:'addOrder/:orderId',component:AddOrderComponent,title:'add order',canActivate:[authGuardGuard]},
-    // {path:'branches',component:BranchesComponent,title:'branches',canActivate:[authGuardGuard]},
-    // {path:'login',component:LoginComponent,title:'login'},
-    // {path:'addDelivery',component:AddingRepresentativeComponent},
-    // {path:'delivery',component:AllDeliveryrepresentativesComponent},
-    // {path:'governrates',component:GovernratesComponent},
-    // {path:'addCity',component:AddCityComponent},
-    // {path:'permissions',component:Permissions},
-    // {path:'addEmployee/:id',component:AddEmployeeComponent},
-    // {path:'reports',component:ReportsComponent},
-    // {path:'weightSettings',component:WeightsettingsModalComponent},
-    // {path:'addnerch',component:AddMerchantComponent}
+  
     { path: 'login', component: LoginComponent, title: 'login' },
 
     {
-      path: 'admin',
+      path: 'Admin',
       component: AdminLayoutComponent,
       canActivate: [authGuardGuard, roleGuard],
       data: { role: 'Admin' },
       children: [
         { path: '', redirectTo: 'home', pathMatch: 'full' },
-        { path: 'home', component: AdminHomeComponent },
-        { path: 'employees', component: EmployeesComponent },
-        { path: 'orders', component: ShowOrdersComponent },
-        { path: 'orders/:status', component: ShowOrdersComponent },
-        { path: 'addOrder/:orderId', component: AddOrderComponent },
-        { path: 'branches', component: BranchesComponent },
-        { path: 'addDelivery', component: AddingRepresentativeComponent },
-        { path: 'delivery', component: AllDeliveryrepresentativesComponent },
-        { path: 'governrates', component: GovernratesComponent },
-        { path: 'addCity', component: AddCityComponent },
+        { path: 'home', component: AdminHomeComponent , title:'Home' },
+        { path: 'employees', component: EmployeesComponent,title:'Employees' },
+        // { path: 'orders', component: ShowOrdersComponent },
+        { path: 'orders/:status', component: ShowOrdersComponent,title:'Orders' },
+        { path: 'addOrder/:orderId', component: AddOrderComponent , title:'Add Order'},
+        { path: 'branches', component: BranchesComponent,title:'Branches' },
+        { path: 'addDelivery', component: AddingRepresentativeComponent,title:'Add Representative' },
+        { path: 'delivery', component: AllDeliveryrepresentativesComponent , title:'Representatives'},
+        { path: 'governrates', component: GovernratesComponent,title:'Governrates' },
+        { path: 'addCity', component: AddCityComponent,title:'Add City' },
         { path: 'permissions', component: Permissions },
         { path: 'addEmployee/:id', component: AddEmployeeComponent },
-        { path: 'reports', component: ReportsComponent },
-        { path: 'weightSettings', component: WeightsettingsModalComponent },
-        { path: 'addmerch', component: AddMerchantComponent }
+        { path: 'reports', component: ReportsComponent ,title:'Reports'},
+        { path: 'weightSettings', component: WeightsettingsModalComponent ,title:'weightSettings'},
+        { path: 'addmerch', component: AddMerchantComponent,title:'Add Merchant' }
       ]
     },
     
     {
-      path: 'merchant',
+      path: 'Merchant',
       component: MerchantLayoutComponent,
       canActivate: [authGuardGuard, roleGuard],
       data: { role: 'Merchant' },
       children: [
         { path: '', redirectTo: 'home', pathMatch: 'full' },
-        { path: 'home', component: AdminHomeComponent },
+        { path: 'home', component: AdminHomeComponent,title:'Home' },
+        { path: 'orders/:status', component: MerchantordersComponent,title:'Orders' },
         { path: 'addorder/:orderId', component: MerchantOrderComponent },
-        { path: 'reports', component: ReportsComponent }
+        { path: 'reports', component: ReportsComponent,title:'Reports' }
       ]
     },
     
     {
-      path: 'delivery',
+      path: 'Delivery',
       component: DeliveryLayoutComponent,
       canActivate: [authGuardGuard, roleGuard],
       data: { role: 'Delivery' },
       children: [
         {path:'',redirectTo: 'home', pathMatch: 'full'},
-        {path:'home',component:AdminHomeComponent},
-        {path:'orders',component:DeliveryOrdersComponent}
+        {path:'home',component:AdminHomeComponent,title:'Home'},
+        {path:'orders',component:DeliveryOrdersComponent,title:'Orders'},
+        {path:'reports',component:ReportsComponent,title:'Orders'}
       ]
     },
     
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', component:NotFoundComponent }
+
+
 ]    

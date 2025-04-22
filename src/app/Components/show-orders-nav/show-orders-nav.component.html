@@ -4,7 +4,7 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              [routerLink]="['/orders','All']"
+              [routerLink]="['/Admin/orders','All']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
          
@@ -15,7 +15,7 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              [routerLink]="['/orders','New']"
+              [routerLink]="['/Admin/orders','New']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
 
@@ -26,10 +26,9 @@
           <li class="nav-item">
             <a
               class="nav-link"
-              [routerLink]="['/orders','pending']"
+              [routerLink]="['/Admin/orders','pending']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              [queryParams]="{ category: 'all', page: 10 }"
               > Pending</a
             >
           </li>
@@ -38,10 +37,10 @@
             <a
               class="nav-link "
               aria-current="page"
-              [routerLink]="['/orders','Delivered']"
+              [routerLink]="['/Admin/orders','Delivered']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >تم التسليم للمندوب</a
+              >Delivered to representative</a
             >
           </li>
             
@@ -49,10 +48,10 @@
             <a
               class="nav-link "
               aria-current="page"
-              [routerLink]="['/orders','Delivered ']"
+              [routerLink]="['/Admin/orders','Delivered ']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >تم التسليم </a
+              >Delivered</a
             >
           </li>
          
@@ -60,10 +59,10 @@
             <a
               class="nav-link "
               aria-current="page"
-              [routerLink]="['/orders','CannotBeReached']"
+              [routerLink]="['/Admin/orders','CannotBeReached']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >لا يمكن الوصول</a
+              >Cannot Be Reached</a
             >
           </li>
           
@@ -71,10 +70,10 @@
             <a
               class="nav-link "
               aria-current="page"
-              [routerLink]="['/orders','Delayed']"
+              [routerLink]="['/Admin/orders','Delayed']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >تم التاجيل</a
+              >Delayed</a
             >
           </li>
           
@@ -82,10 +81,10 @@
             <a
               class="nav-link "
               aria-current="page"
-              [routerLink]="['/orders','PartiallyDelivered']"
+              [routerLink]="['/Admin/orders','PartiallyDelivered']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >تم التسليم جزئيا</a
+              >Partially Delivered</a
             >
           </li>
 
@@ -93,34 +92,25 @@
             <a
               class="nav-link "
               aria-current="page"
-              [routerLink]="['/orders','CanceledByRecipient']"
+              [routerLink]="['/Admin/orders','CanceledByRecipient']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >تم الالغاء من قبل المستلم  </a
+              >Canceled By Recipient</a
             >
           </li>
           <li class="nav-item">
             <a
               class="nav-link "
               aria-current="page"
-              [routerLink]="['/orders','rejectedWithPaid']"
+              [routerLink]="['/Admin/orders','rejectedWithPaid']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >تم الرفض مع الدفع</a
+              >rejected With Paid</a
             >
           </li>
 
 
-          <li class="nav-item">
-            <a
-              class="nav-link "
-              aria-current="page"
-              [routerLink]="['']"
-              [routerLinkActive]="'active'"
-              [routerLinkActiveOptions]="{ exact: true }"
-              >رفض مع سداد جزء</a
-            >
-          </li>
+      
           <li class="nav-item">
             <a
               class="nav-link  "
@@ -128,7 +118,7 @@
               [routerLink]="['/orders','rejectedNotPaid']"
               [routerLinkActive]="'active'"
               [routerLinkActiveOptions]="{ exact: true }"
-              >رفض ولم يتم الدفع</a
+              >rejected Not Paid</a
             >
           </li>
          

@@ -10,14 +10,13 @@ import { EditOrderStatusModalComponent } from '../edit-order-status-modal/edit-o
 import { MatDialog } from '@angular/material/dialog';
 import { AssignorderModalComponent } from '../assignorder-modal/assignorder-modal.component';
 import { LoginService } from '../../core/services/login/login.service';
-
 @Component({
-  selector: 'app-show-orders',
+  selector: 'app-merchantorders',
   imports: [RouterLink, RouterLinkActive, ShowOrdersNavComponent,CommonModule,FormsModule],
-  templateUrl: './show-orders.component.html',
-  styleUrl: './show-orders.component.css'
+  templateUrl: './merchantorders.component.html',
+  styleUrl: './merchantorders.component.css'
 })
-export class ShowOrdersComponent implements OnInit, OnDestroy {
+export class MerchantordersComponent implements OnInit , OnDestroy {
   Subscription: Subscription[] = [];
   orders!: IOrder[];
   order?: IOrder;
@@ -25,9 +24,7 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
   hasPendingOrders: boolean = false;
   selectedorderid!:number
   role!:string
-  firstLoading:boolean = false;
-  loading:boolean = false;
-
+  loading:boolean=false
   // Pagination
   currentPage: number = 1;
   pageSize: number = 10;
@@ -58,8 +55,7 @@ export class ShowOrdersComponent implements OnInit, OnDestroy {
   }
 
   getOrdersByStatus(): void {
-    this.loading = true;
-
+    this.loading=true
     const ordersSubscription = this._AdminOrdersService.getOrdersByStatus(
       this.currentStatus,
       this.currentPage,
@@ -109,54 +105,12 @@ this.hasPendingOrders = this.orders?.some(order => order.orderStatus === 'Pendin
   editOrder(orderId: number): void {
     this.order = this.orders.find((order) => order.id === orderId);
   }
-  //////modal//////////////
-  settingActive(orderid: number) {
-    console.log(orderid);
-    this.selectedorderid = orderid;
-  
-    const dialogRef = this.dialog.open(EditOrderStatusModalComponent, {
-      width: '600px',
-      height: '300px',
-      data: { orderid }
-    });
-  
-    dialogRef.afterClosed().subscribe((result) => {
-      console.log('Dialog closed with result:', result);
-      console.log('Selected order ID:', this.selectedorderid);
-  
-      if (result === true) {
-        this.orders = this.orders.filter(
-          (order: IOrder) => order.id !== this.selectedorderid
-        );
-  
-      }
-    });
-  }
-  
-  //////modal assign order//////////////
-  assign(orderid: number, gov: string) {
-    this.selectedorderid = orderid;
-    console.log('id', orderid);
-    console.log('gov', gov);
-  
-    const dialogRef = this.dialog.open(AssignorderModalComponent, {
-      width: '600px',
-      height: '300px',
-      data: { orderid, gov }
-    });
-  
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        console.log('Assign modal result:', result);
-  
-       
-      }
-    });
-  }
-  
+ 
+ 
 
   //////////////////////////
   ngOnDestroy(): void {
     this.Subscription.forEach((sub) => sub.unsubscribe());
   }
+
 }
